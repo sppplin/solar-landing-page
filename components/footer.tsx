@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 const productLinks = [
   "Mono Cartons",
@@ -10,13 +13,22 @@ const productLinks = [
 ]
 
 export function Footer() {
+  const [logoUrl, setLogoUrl] = useState("/logo.svg")
+
+  useEffect(() => {
+    fetch("/api/site-settings")
+      .then((r) => r.json())
+      .then((d) => { if (d.logo_url) setLogoUrl(d.logo_url) })
+      .catch(() => {})
+  }, [])
+
   return (
     <footer className="bg-secondary pt-8 sm:pt-10">
       <div className="mx-auto grid max-w-[1120px] gap-6 px-4 sm:gap-9 sm:px-6 md:grid-cols-3">
         {/* Company Info */}
         <div>
           <Image
-            src="/logo.svg"
+            src={logoUrl}
             alt="Solar Print Process"
             width={140}
             height={42}

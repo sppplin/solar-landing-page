@@ -1,8 +1,10 @@
 import Image from "next/image"
 import LeadsTable from "@/components/admin/LeadsTable"
 import LogoutButton from "@/components/admin/LogoutButton"
+import SiteSettings from "@/components/admin/SiteSettings"
 import { HiOutlineClipboardList, HiOutlineCalendar, HiOutlineClock, HiOutlineTrendingUp } from "react-icons/hi"
 import { HiSignal } from "react-icons/hi2"
+import { neon } from "@neondatabase/serverless"
 
 interface Lead {
   id: number
@@ -15,9 +17,18 @@ interface Lead {
   submitted_at?: string
 }
 
+async function getLogoUrl(): Promise<string> {
+  try {
+    const sql = neon(process.env.DATABASE_URL!)
+    const rows = await sql`SELECT value FROM settings WHERE key = 'logo_url' LIMIT 1`
+    return rows[0]?.value?.trim() || "/logo.svg"
+  } catch {
+    return "/logo.svg"
+  }
+}
+
 async function getStats(): Promise<{ total: number; thisMonth: number; thisWeek: number; today: number }> {
   try {
-    // Same API that LeadsTable uses — guaranteed to work
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000"}/api/leads`, {
       cache: "no-store",
     })
@@ -28,16 +39,13 @@ async function getStats(): Promise<{ total: number; thisMonth: number; thisWeek:
 
     const now = new Date()
 
-    // Start of today
     const todayStart = new Date(now)
     todayStart.setHours(0, 0, 0, 0)
 
-    // Start of this week (Monday)
     const weekStart = new Date(now)
     weekStart.setDate(now.getDate() - ((now.getDay() + 6) % 7))
     weekStart.setHours(0, 0, 0, 0)
 
-    // Start of this month
     const monthStart = new Date(now.getFullYear(), now.getMonth(), 1)
 
     const total     = leads.length
@@ -53,7 +61,7 @@ async function getStats(): Promise<{ total: number; thisMonth: number; thisWeek:
 }
 
 export default async function Page() {
-  const stats = await getStats()
+  const [stats, logoUrl] = await Promise.all([getStats(), getLogoUrl()])
 
   const statCards = [
     {
@@ -122,17 +130,14 @@ export default async function Page() {
           {/* Brand */}
           <div className="flex items-center gap-3">
             <Image
-              src="/logo.svg"
+              src={logoUrl}
               alt="Solar Print Process Pvt. Ltd."
               width={120}
               height={40}
+              unoptimized={logoUrl.startsWith("http") || logoUrl.startsWith("data:")}
               className="h-10 w-auto object-contain"
               priority
             />
-            <div className="hidden sm:block w-px h-6 bg-border" />
-            <span className="hidden sm:block text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              Admin Portal
-            </span>
           </div>
 
           {/* Right */}
@@ -142,6 +147,7 @@ export default async function Page() {
               Live
             </div>
             <HiSignal className="sm:hidden w-4 h-4 text-green-500" />
+            <SiteSettings />
             <LogoutButton />
           </div>
 

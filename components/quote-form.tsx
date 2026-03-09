@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { CheckCircle2 } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
 import { HiOutlineClipboardList } from "react-icons/hi"
@@ -31,7 +32,7 @@ interface QuoteFormProps {
 }
 
 export function QuoteForm({ variant = "default" }: QuoteFormProps) {
-  const [submitted, setSubmitted] = useState(false)
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [formData, setFormData] = useState({
@@ -57,10 +58,11 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
         body: JSON.stringify(formData),
       })
       if (!res.ok) throw new Error("Failed to submit")
-      setSubmitted(true)
+
+      // Redirect to thank you page — GTM conversion fires there
+      router.push("/thank-you")
     } catch {
       setError("Something went wrong. Please try again or call us directly.")
-    } finally {
       setLoading(false)
     }
   }
@@ -68,29 +70,6 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
   const containerClasses = variant === "dialog"
     ? "rounded-xl bg-white p-5 sm:rounded-2xl sm:p-7"
     : "sticky top-32 lg:top-40 rounded-xl bg-white p-5 shadow-[0_20px_60px_rgba(0,0,0,0.5)] sm:rounded-2xl sm:p-6 lg:p-5"
-
-  if (submitted) {
-    return (
-      <div className={containerClasses}>
-        <div className="py-4 text-center sm:py-5">
-          <CheckCircle2 className="mx-auto mb-3 h-12 w-12 text-green-600 sm:mb-4 sm:h-16 sm:w-16" />
-          <h3 className="mb-2 font-heading text-xl font-black uppercase text-green-700 sm:text-2xl">Request Received!</h3>
-          <p className="mb-4 text-sm text-muted-foreground">
-            We will call or WhatsApp you within 2 hours with your quote.
-          </p>
-          <a
-            href="https://wa.me/919871713676?text=Hi%2C+I+just+submitted+a+quote+request"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 font-bold text-foreground no-underline sm:w-auto"
-          >
-            <FaWhatsapp className="h-5 w-5" />
-            Chat on WhatsApp Now
-          </a>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className={containerClasses}>
@@ -157,9 +136,7 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
           >
             <option value="">Select packaging type...</option>
             {packagingTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
+              <option key={type} value={type}>{type}</option>
             ))}
           </select>
         </div>
@@ -176,9 +153,7 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
           >
             <option value="">Select quantity range...</option>
             {quantities.map((qty) => (
-              <option key={qty} value={qty}>
-                {qty}
-              </option>
+              <option key={qty} value={qty}>{qty}</option>
             ))}
           </select>
         </div>

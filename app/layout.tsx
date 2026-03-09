@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Barlow, Barlow_Condensed } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
+import { neon } from '@neondatabase/serverless'
 import './globals.css'
 
 const barlow = Barlow({ 
@@ -15,27 +17,83 @@ const barlowCondensed = Barlow_Condensed({
   variable: '--font-barlow-condensed'
 })
 
-export const metadata: Metadata = {
-  title: 'Solar Print Process - Packaging Manufacturer in Noida',
-  description:
-    'Packaging manufacturer in Noida. Mono cartons, rigid boxes, FMCG, food & cosmetic packaging. 200,000 sq ft plant. Bulk orders. Quote in 2 hours.',
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
-  },
+// ── Fetch all site settings from Neon DB ─────────────────────────────────────
+async function getSiteSettings() {
+  try {
+    const sql = neon(process.env.DATABASE_URL!)
+    const rows = await sql`
+      SELECT key, value FROM settings
+      WHERE key IN ('gtm_id', 'site_title', 'site_desc', 'logo_url', 'favicon_url')
+    `
+    const map = Object.fromEntries(rows.map((r) => [r.key, r.value as string]))
+    return {
+      gtmId:      map.gtm_id      ?? "",
+      siteTitle:  map.site_title  ?? "",
+      siteDesc:   map.site_desc   ?? "",
+      logoUrl:    map.logo_url    ?? "",
+      faviconUrl: map.favicon_url ?? "",
+    }
+  } catch {
+    return { gtmId: "", siteTitle: "", siteDesc: "", logoUrl: "", faviconUrl: "" }
+  }
 }
 
-export default function RootLayout({
+// ── Dynamic metadata from DB ─────────────────────────────────────────────────
+export async function generateMetadata(): Promise<Metadata> {
+  const s = await getSiteSettings()
+
+  return {
+    title: s.siteTitle || "Solar Print Process - Packaging Manufacturer in Noida",
+    description: s.siteDesc || "Packaging manufacturer in Noida. Mono cartons, rigid boxes, FMCG, food & cosmetic packaging. 200,000 sq ft plant. Bulk orders. Quote in 2 hours.",
+    icons: {
+      icon:     s.faviconUrl || "/favicon.ico",
+      shortcut: s.faviconUrl || "/favicon.ico",
+      apple:    s.faviconUrl || "/favicon.ico",
+    },
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const s = await getSiteSettings()
+
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${barlow.variable} ${barlowCondensed.variable} font-sans antialiased`}>
+      <body suppressHydrationWarning className={`${barlow.variable} ${barlowCondensed.variable} font-sans antialiased`}>
+
+        {/* GTM noscript fallback */}
+        {s.gtmId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${s.gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
+
         {children}
         <Analytics />
+
+        {/* GTM script — only injected if GTM ID is set in admin panel */}
+        {s.gtmId && (
+          <Script
+            id="gtm-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${s.gtmId}');`,
+            }}
+          />
+        )}
+
       </body>
     </html>
   )

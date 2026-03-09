@@ -3,25 +3,50 @@
 import { Phone, Menu, X } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
 import { HiOutlineClipboardList } from "react-icons/hi"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [logoUrl, setLogoUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetch("/api/site-settings")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.logo_url) setLogoUrl(d.logo_url)
+      })
+      .catch(() => {})
+  }, [])
+
+  // Use DB logo if set, else fallback to /logo.svg
+  const logoSrc = logoUrl || "/logo.svg"
 
   return (
     <nav className="sticky top-0 z-50 border-b-[3px] border-primary bg-white shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
       <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-2 px-4 py-2 sm:gap-3 sm:px-6 sm:py-3">
         {/* Logo */}
         <a href="#" className="shrink-0">
-          <Image
-            src="/logo.svg"
-            alt="Solar Print Process - Custom Packaging Manufacturer"
-            width={0}
-            height={0}
-            priority
-            className="h-10 w-auto sm:h-12"
-          />
+          {logoSrc.startsWith("data:") ? (
+            // base64 image — use regular img tag
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={logoSrc}
+              alt="Solar Print Process - Custom Packaging Manufacturer"
+              className="h-10 w-auto sm:h-12 object-contain"
+            />
+          ) : (
+            // URL or /logo.svg — use Next Image
+            <Image
+              src={logoSrc}
+              alt="Solar Print Process - Custom Packaging Manufacturer"
+              width={0}
+              height={0}
+              priority
+              unoptimized={logoSrc.startsWith("http")}
+              className="h-10 w-auto sm:h-12"
+            />
+          )}
         </a>
 
         {/* Desktop CTA Buttons */}
