@@ -45,10 +45,17 @@ export default function LeadsTable() {
       l.phone.includes(search)
   )
 
+  const q = (val: string | number | undefined) =>
+    `"${String(val ?? "").replace(/"/g, '""')}"`
+
   const exportCSV = () => {
     const rows = filtered.map((l) => [
-      l.name, l.phone, l.company, l.packaging_type, l.quantity,
-      `"${(l.message || "").replace(/"/g, '""')}"`,
+      q(l.name),
+      q(l.phone),
+      q(l.company),
+      q(l.packaging_type),
+      q(l.quantity),   // ← was unquoted — "25,000+ pieces" was splitting into 2 columns
+      q(l.message),
     ])
     const csv =
       "Name,Phone,Company,Packaging,Quantity,Message\n" +
