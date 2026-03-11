@@ -82,8 +82,8 @@ export function Footer() {
             >
               WhatsApp Now
             </a>
-            <p className="mt-2 text-xs leading-loose text-muted-foreground sm:mt-2.5 sm:text-[13.5px]">C-10, Sector 85, Noida UP 201305</p>
-            <p className="text-xs leading-loose text-muted-foreground sm:text-[13.5px]">Mon-Sat: 9:00 AM - 7:00 PM</p>
+            <p className="mt-2 text-xs leading-loose text-muted-foreground sm:mt-2.5 sm:text-[13.5px]">C-10, Sector 85, Noida, Uttar Pradesh - 201305</p>
+            <p className="text-xs leading-loose text-muted-foreground sm:text-[13.5px]">Mon-Sat: 9:30 AM - 6:00 PM</p>
           </div>
         </div>
       </div>

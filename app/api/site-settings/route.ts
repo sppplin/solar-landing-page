@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { verifyToken } from "@/lib/auth"
 import { cookies } from "next/headers"
 
-const KEYS = ["gtm_id", "site_title", "site_desc", "logo_url", "favicon_url"] as const
+const KEYS = ["gtm_id", "ga_id", "site_title", "site_desc", "logo_url", "favicon_url"] as const
 
 // ── GET — fetch all settings ──────────────────────────────────────────────────
 export async function GET() {
@@ -25,7 +25,7 @@ export async function GET() {
     return NextResponse.json(result)
   } catch (err) {
     console.error("[GET /api/site-settings]", err)
-    return NextResponse.json({ gtm_id: "", site_title: "", site_desc: "", logo_url: "", favicon_url: "" })
+    return NextResponse.json({ gtm_id: "", ga_id: "", site_title: "", site_desc: "", logo_url: "", favicon_url: "" })
   }
 }
 
@@ -48,6 +48,15 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Validate GA4 ID format if provided
+    const gaId = (body.ga_id ?? "").trim()
+    if (gaId && !/^G-[A-Z0-9]+$/.test(gaId)) {
+      return NextResponse.json(
+        { error: "Invalid GA4 ID. Format must be G-XXXXXXXXXX" },
+        { status: 400 }
+      )
+    }
+
     const sql = neon(process.env.DATABASE_URL!)
 
     await sql`
@@ -60,6 +69,7 @@ export async function POST(req: NextRequest) {
     // Upsert all keys in one go
     const pairs: [string, string][] = [
       ["gtm_id",      gtmId],
+      ["ga_id",       gaId],
       ["site_title",  (body.site_title  ?? "").trim()],
       ["site_desc",   (body.site_desc   ?? "").trim()],
       ["logo_url",    (body.logo_url    ?? "").trim()],

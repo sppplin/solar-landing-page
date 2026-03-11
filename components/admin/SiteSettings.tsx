@@ -13,13 +13,15 @@ import {
   HiOutlineX,
   HiOutlineUpload,
   HiOutlineTrash,
+  HiOutlineChartBar,
 } from "react-icons/hi"
 
 // ── Types ──────────────────────────────────────────────────────────────────────
-type Tab = "gtm" | "logo" | "site"
+type Tab = "gtm" | "ga" | "logo" | "site"
 
 interface Settings {
   gtm_id:        string
+  ga_id:         string
   site_title:    string
   site_desc:     string
   logo_url:      string
@@ -59,6 +61,7 @@ export default function SiteSettings() {
 
   // Form state
   const [gtmId,      setGtmId]      = useState("")
+  const [gaId,       setGaId]       = useState("")
   const [siteTitle,  setSiteTitle]  = useState("")
   const [siteDesc,   setSiteDesc]   = useState("")
   const [logoUrl,    setLogoUrl]    = useState("")
@@ -78,6 +81,7 @@ export default function SiteSettings() {
       .then((r) => r.json())
       .then((d: Settings) => {
         setGtmId(d.gtm_id       ?? "")
+        setGaId(d.ga_id        ?? "")
         setSiteTitle(d.site_title  ?? "")
         setSiteDesc(d.site_desc   ?? "")
         setLogoUrl(d.logo_url    ?? "")
@@ -125,6 +129,7 @@ export default function SiteSettings() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           gtm_id:      gtmId.trim(),
+          ga_id:       gaId.trim(),
           site_title:  siteTitle.trim(),
           site_desc:   siteDesc.trim(),
           logo_url:    logoUrl,
@@ -147,7 +152,8 @@ export default function SiteSettings() {
 
   // ── Tabs config ──────────────────────────────────────────────────────────────
   const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
-    { id: "gtm",  label: "Tracking",   icon: HiOutlineCode       },
+    { id: "gtm",  label: "GTM",        icon: HiOutlineCode        },
+    { id: "ga",   label: "Analytics",  icon: HiOutlineChartBar    },
     { id: "logo", label: "Logo",       icon: HiOutlinePhotograph  },
     { id: "site", label: "Site Info",  icon: HiOutlineGlobe       },
   ]
@@ -206,12 +212,12 @@ export default function SiteSettings() {
             </div>
 
             {/* ── Tabs ── */}
-            <div className="flex border-b border-border flex-shrink-0 px-5 sm:px-6 gap-1 bg-muted">
+            <div className="flex border-b border-border flex-shrink-0 px-2 sm:px-4 gap-1 bg-muted overflow-x-auto scrollbar-none" style={{ scrollbarWidth: "none" }}>
               {tabs.map(({ id, label, icon: Icon }) => (
                 <button
                   key={id}
                   onClick={() => { setTab(id); setStatus({ type: "idle", msg: "" }) }}
-                  className={`inline-flex items-center gap-1.5 px-3 py-3 text-xs font-bold tracking-[0.12em] uppercase border-b-2 transition-all cursor-pointer ${
+                  className={`inline-flex items-center gap-1.5 px-3 py-3 text-xs font-bold tracking-[0.12em] uppercase border-b-2 transition-all cursor-pointer flex-shrink-0 whitespace-nowrap ${
                     tab === id
                       ? "border-primary text-foreground"
                       : "border-transparent text-muted-foreground hover:text-foreground"
@@ -270,6 +276,54 @@ export default function SiteSettings() {
                           "Auto-injected on every page via layout.tsx",
                           "Configure Meta Pixel + Google Ads inside GTM",
                           "Form submits fire form_submit_success to dataLayer",
+                        ].map((t) => (
+                          <p key={t} className="text-xs text-muted-foreground flex items-start gap-2">
+                            <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            {t}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+
+                  {/* ── GA TAB ── */}
+                  {tab === "ga" && (
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Enter your Google Analytics 4 Measurement ID. It will be injected on every page automatically.
+                        </p>
+                        <label className="block text-[10px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">
+                          GA4 Measurement ID
+                        </label>
+                        <div className="relative">
+                          <HiOutlineChartBar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                          <input
+                            type="text"
+                            value={gaId}
+                            onChange={(e) => setGaId(e.target.value.toUpperCase())}
+                            placeholder="G-XXXXXXXXXX"
+                            spellCheck={false}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                          />
+                        </div>
+                        {gaId && (
+                          <p className="mt-2 text-xs text-green-600 flex items-center gap-1">
+                            <HiOutlineCheckCircle className="w-3.5 h-3.5" />
+                            GA4 active — {gaId}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Info box */}
+                      <div className="p-4 rounded-xl bg-muted border border-border space-y-1.5">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-2">How to get your ID</p>
+                        {[
+                          "Go to analytics.google.com → Admin",
+                          "Select your Property → Data Streams",
+                          "Click your web stream → copy Measurement ID (G-XXXXXXX)",
+                          "Paste it above and Save — auto-injected on all pages",
                         ].map((t) => (
                           <p key={t} className="text-xs text-muted-foreground flex items-start gap-2">
                             <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
