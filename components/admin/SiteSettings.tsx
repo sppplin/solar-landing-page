@@ -224,7 +224,7 @@ export default function SiteSettings() {
             </div>
 
             {/* ── Tabs ── */}
-            <div className="flex border-b border-border flex-shrink-0 px-2 sm:px-4 gap-1 bg-muted overflow-x-auto scrollbar-none" style={{ scrollbarWidth: "none" }}>
+            <div className="flex border-b border-border flex-shrink-0 px-2 sm:px-4 gap-1 bg-muted overflow-x-auto">
               {tabs.map(({ id, label, icon: Icon }) => (
                 <button
                   key={id}
