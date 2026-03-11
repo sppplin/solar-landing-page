@@ -14,14 +14,16 @@ import {
   HiOutlineUpload,
   HiOutlineTrash,
   HiOutlineChartBar,
+  HiOutlineEye,
 } from "react-icons/hi"
 
 // ── Types ──────────────────────────────────────────────────────────────────────
-type Tab = "gtm" | "ga" | "logo" | "site"
+type Tab = "gtm" | "ga" | "clarity" | "logo" | "site"
 
 interface Settings {
   gtm_id:        string
   ga_id:         string
+  clarity_id:    string
   site_title:    string
   site_desc:     string
   logo_url:      string
@@ -62,6 +64,7 @@ export default function SiteSettings() {
   // Form state
   const [gtmId,      setGtmId]      = useState("")
   const [gaId,       setGaId]       = useState("")
+  const [clarityId,  setClarityId]  = useState("")
   const [siteTitle,  setSiteTitle]  = useState("")
   const [siteDesc,   setSiteDesc]   = useState("")
   const [logoUrl,    setLogoUrl]    = useState("")
@@ -82,6 +85,7 @@ export default function SiteSettings() {
       .then((d: Settings) => {
         setGtmId(d.gtm_id       ?? "")
         setGaId(d.ga_id        ?? "")
+        setClarityId(d.clarity_id   ?? "")
         setSiteTitle(d.site_title  ?? "")
         setSiteDesc(d.site_desc   ?? "")
         setLogoUrl(d.logo_url    ?? "")
@@ -130,6 +134,7 @@ export default function SiteSettings() {
         body: JSON.stringify({
           gtm_id:      gtmId.trim(),
           ga_id:       gaId.trim(),
+          clarity_id:  clarityId.trim(),
           site_title:  siteTitle.trim(),
           site_desc:   siteDesc.trim(),
           logo_url:    logoUrl,
@@ -154,6 +159,7 @@ export default function SiteSettings() {
   const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "gtm",  label: "GTM",        icon: HiOutlineCode        },
     { id: "ga",   label: "Analytics",  icon: HiOutlineChartBar    },
+    { id: "clarity", label: "Clarity",   icon: HiOutlineEye         },
     { id: "logo", label: "Logo",       icon: HiOutlinePhotograph  },
     { id: "site", label: "Site Info",  icon: HiOutlineGlobe       },
   ]
@@ -324,6 +330,54 @@ export default function SiteSettings() {
                           "Select your Property → Data Streams",
                           "Click your web stream → copy Measurement ID (G-XXXXXXX)",
                           "Paste it above and Save — auto-injected on all pages",
+                        ].map((t) => (
+                          <p key={t} className="text-xs text-muted-foreground flex items-start gap-2">
+                            <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                            {t}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+
+                  {/* ── CLARITY TAB ── */}
+                  {tab === "clarity" && (
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Enter your Microsoft Clarity Project ID. It records sessions and heatmaps automatically.
+                        </p>
+                        <label className="block text-[10px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">
+                          Clarity Project ID
+                        </label>
+                        <div className="relative">
+                          <HiOutlineEye className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                          <input
+                            type="text"
+                            value={clarityId}
+                            onChange={(e) => setClarityId(e.target.value.toLowerCase())}
+                            placeholder="iz5bw23wev"
+                            spellCheck={false}
+                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-border bg-background text-foreground font-mono text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                          />
+                        </div>
+                        {clarityId && (
+                          <p className="mt-2 text-xs text-green-600 flex items-center gap-1">
+                            <HiOutlineCheckCircle className="w-3.5 h-3.5" />
+                            Clarity active — {clarityId}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Info box */}
+                      <div className="p-4 rounded-xl bg-muted border border-border space-y-1.5">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-2">How to get your ID</p>
+                        {[
+                          "Go to clarity.microsoft.com → New Project",
+                          "Add your website URL and create project",
+                          "Copy the Project ID from Setup → Install manually",
+                          "Paste it above — session recordings start immediately",
                         ].map((t) => (
                           <p key={t} className="text-xs text-muted-foreground flex items-start gap-2">
                             <span className="w-1 h-1 rounded-full bg-primary mt-1.5 flex-shrink-0" />

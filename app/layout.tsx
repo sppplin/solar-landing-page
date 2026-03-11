@@ -23,19 +23,20 @@ async function getSiteSettings() {
     const sql = neon(process.env.DATABASE_URL!)
     const rows = await sql`
       SELECT key, value FROM settings
-      WHERE key IN ('gtm_id', 'ga_id', 'site_title', 'site_desc', 'logo_url', 'favicon_url')
+      WHERE key IN ('gtm_id', 'ga_id', 'clarity_id', 'site_title', 'site_desc', 'logo_url', 'favicon_url')
     `
     const map = Object.fromEntries(rows.map((r) => [r.key, r.value as string]))
     return {
       gtmId:      map.gtm_id      ?? "",
       gaId:       map.ga_id       ?? "",
+      clarityId:  map.clarity_id   ?? "",
       siteTitle:  map.site_title  ?? "",
       siteDesc:   map.site_desc   ?? "",
       logoUrl:    map.logo_url    ?? "",
       faviconUrl: map.favicon_url ?? "",
     }
   } catch {
-    return { gtmId: "", gaId: "", siteTitle: "", siteDesc: "", logoUrl: "", faviconUrl: "" }
+    return { gtmId: "", gaId: "", clarityId: "", siteTitle: "", siteDesc: "", logoUrl: "", faviconUrl: "" }
   }
 }
 
@@ -114,6 +115,21 @@ gtag('config', '${s.gaId}');`,
               }}
             />
           </>
+        )}
+
+        {/* Clarity script — only injected if Clarity ID is set in admin panel */}
+        {s.clarityId && (
+          <Script
+            id="clarity-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","${s.clarityId}");`,
+            }}
+          />
         )}
 
       </body>
