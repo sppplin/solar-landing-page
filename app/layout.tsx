@@ -23,20 +23,21 @@ async function getSiteSettings() {
     const sql = neon(process.env.DATABASE_URL!)
     const rows = await sql`
       SELECT key, value FROM settings
-      WHERE key IN ('gtm_id', 'ga_id', 'clarity_id', 'site_title', 'site_desc', 'logo_url', 'favicon_url')
+      WHERE key IN ('gtm_id', 'ga_id', 'clarity_id', 'pixel_id', 'site_title', 'site_desc', 'logo_url', 'favicon_url')
     `
     const map = Object.fromEntries(rows.map((r) => [r.key, r.value as string]))
     return {
       gtmId:      map.gtm_id      ?? "",
       gaId:       map.ga_id       ?? "",
       clarityId:  map.clarity_id   ?? "",
+      pixelId:    map.pixel_id     ?? "",
       siteTitle:  map.site_title  ?? "",
       siteDesc:   map.site_desc   ?? "",
       logoUrl:    map.logo_url    ?? "",
       faviconUrl: map.favicon_url ?? "",
     }
   } catch {
-    return { gtmId: "", gaId: "", clarityId: "", siteTitle: "", siteDesc: "", logoUrl: "", faviconUrl: "" }
+    return { gtmId: "", gaId: "", clarityId: "", pixelId: "", siteTitle: "", siteDesc: "", logoUrl: "", faviconUrl: "" }
   }
 }
 
@@ -130,6 +131,38 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window,document,"clarity","script","${s.clarityId}");`,
             }}
           />
+        )}
+
+        {/* Meta Pixel — only injected if Pixel ID is set in admin panel */}
+        {s.pixelId && (
+          <>
+            <Script
+              id="meta-pixel"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${s.pixelId}');
+fbq('track', 'PageView');`,
+              }}
+            />
+            <noscript>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                height="1"
+                width="1"
+                style={{ display: "none" }}
+                src={`https://www.facebook.com/tr?id=${s.pixelId}&ev=PageView&noscript=1`}
+                alt=""
+              />
+            </noscript>
+          </>
         )}
 
       </body>
