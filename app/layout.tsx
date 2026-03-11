@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import { neon } from '@neondatabase/serverless'
 import './globals.css'
+import CookieBanner from '@/components/CookieBanner'
 
 const barlow = Barlow({ 
   subsets: ["latin"],
@@ -81,6 +82,7 @@ export default async function RootLayout({
 
         {children}
         <Analytics />
+        <CookieBanner />
 
         {/* GTM script — only injected if GTM ID is set in admin panel */}
         {s.gtmId && (
