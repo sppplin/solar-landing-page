@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { TopBar } from "@/components/top-bar"
 import { Navigation } from "@/components/navigation"
@@ -41,6 +41,30 @@ export default function ContactPage() {
   const [phone, setPhone]     = useState("")
   const [message, setMessage] = useState("")
   const [status, setStatus]   = useState<"idle"|"sending"|"success"|"error">("idle")
+  const [countdown, setCountdown] = useState(3)
+
+  // Auto-reset form 3 seconds after success
+  useEffect(() => {
+    if (status !== "success") return
+
+    setCountdown(3)
+
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) { clearInterval(interval); return 0 }
+        return prev - 1
+      })
+    }, 1000)
+
+    const timeout = setTimeout(() => {
+      setName("")
+      setPhone("")
+      setMessage("")
+      setStatus("idle")
+    }, 3000)
+
+    return () => { clearInterval(interval); clearTimeout(timeout) }
+  }, [status])
 
   const handleSubmit = async () => {
     if (!name.trim() || !phone.trim()) return
@@ -49,7 +73,14 @@ export default function ContactPage() {
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, message, packaging_type: "General Enquiry", quantity: "-" }),
+        body: JSON.stringify({
+          name,
+          phone,
+          message,
+          packagingType: "General Enquiry",
+          quantity: "-",
+          company: "",
+        }),
       })
       if (res.ok) setStatus("success")
       else setStatus("error")
@@ -148,6 +179,7 @@ export default function ContactPage() {
                     </div>
                     <p className="font-heading font-black uppercase text-foreground">Message Sent!</p>
                     <p className="text-sm text-muted-foreground">We'll get back to you within 2 hours.</p>
+                    <p className="text-xs text-muted-foreground/60 mt-1">Form resets in <span className="font-bold text-primary">{countdown}s</span></p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -158,6 +190,7 @@ export default function ContactPage() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Rahul Sharma"
+                        autoComplete="name"
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
                       />
                     </div>
@@ -168,6 +201,7 @@ export default function ContactPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="+91 98XXX XXXXX"
+                        autoComplete="tel"
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
                       />
                     </div>
@@ -178,6 +212,7 @@ export default function ContactPage() {
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Tell us about your packaging requirement..."
                         rows={4}
+                        autoComplete="off"
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
                       />
                     </div>

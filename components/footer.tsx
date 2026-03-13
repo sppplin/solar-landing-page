@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useRouter, usePathname } from "next/navigation"
 
 const productLinks = [
   "Mono Cartons",
@@ -23,6 +24,8 @@ const legalLinks = [
 
 export function Footer() {
   const [logoUrl, setLogoUrl] = useState("/logo.svg")
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     fetch("/api/site-settings")
@@ -31,20 +34,29 @@ export function Footer() {
       .catch(() => {})
   }, [])
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (pathname === "/") {
+      window.location.reload()
+    } else {
+      router.push("/")
+    }
+  }
+
   return (
     <footer className="bg-secondary pt-8 sm:pt-10">
       <div className="mx-auto grid max-w-[1120px] gap-6 px-4 sm:gap-9 sm:px-6 md:grid-cols-4">
         {/* Company Info */}
-        <div>
-          <Image
-            src={logoUrl}
-            alt="Solar Print Process"
-            width={140}
-            height={42}
-            unoptimized
-            style={{ width: "auto", height: "auto" }}
-            className="mb-3 h-9 brightness-0 invert sm:h-10"
-          />
+        <div className="flex flex-col items-center md:items-start">
+          <a href="/" onClick={handleLogoClick} className="inline-block cursor-pointer mx-auto md:mx-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logoUrl}
+              alt="Solar Print Process"
+              style={{ height: "auto", width: "100%", maxWidth: "100%" }}
+              className="mb-3 brightness-0 invert"
+            />
+          </a>
           <p className="text-xs leading-relaxed text-muted-foreground sm:text-[13.5px]">
             Established 1975. Custom packaging manufacturer in Noida. 200,000 sq ft facility. Serving FMCG, Pharma,
             Beauty, Food and 10+ industries.
@@ -117,7 +129,7 @@ export function Footer() {
       <div className="mx-auto mt-6 max-w-[1120px] border-t border-primary/20 px-4 py-4 sm:mt-7 sm:px-6 sm:py-5">
         <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:justify-between">
           <p className="text-[11px] text-muted-foreground sm:text-[12.5px]">
-            © 2026 Solar Print Process Pvt. Ltd. · All rights reserved.
+            © {new Date().getFullYear()} Solar Print Process Pvt. Ltd. · All rights reserved.
           </p>
           <p className="text-[11px] text-muted-foreground sm:text-[12.5px]">
             Made with ❤️ by{" "}

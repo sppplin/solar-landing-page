@@ -40,7 +40,7 @@ export default function ThankYouPage() {
 
   // Separate effect to handle redirect — avoids setState-during-render error
   useEffect(() => {
-    if (countdown === 0) router.push("https://www.solarprintprocess.com/projects")
+    if (countdown === 0) router.push("https://solarprintprocess.com")
   }, [countdown, router])
 
   return (
@@ -144,7 +144,7 @@ export default function ThankYouPage() {
               +91 98717 13676
             </a>
             <a
-              href="https://www.solarprintprocess.com/projects"
+              href="https://solarprintprocess.com/projects"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl border border-primary/40 font-semibold text-sm text-accent bg-primary/5 hover:bg-primary/10 hover:border-primary transition-all hover:-translate-y-0.5 whitespace-nowrap"

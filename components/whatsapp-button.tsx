@@ -11,14 +11,13 @@ export function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false)
   const audioCtxRef = useRef<AudioContext | null>(null)
   const reopenTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const interactedRef = useRef(false)
+  const openScheduledRef = useRef(false)
 
   const playSound = () => {
     try {
-      if (!audioCtxRef.current) {
-        audioCtxRef.current = new AudioContext()
-      }
+      if (!audioCtxRef.current) audioCtxRef.current = new AudioContext()
       const ctx = audioCtxRef.current
-      // Resume if suspended (browser autoplay policy)
       if (ctx.state === "suspended") ctx.resume()
       const playTone = (freq: number, startTime: number, duration: number, gain: number) => {
         const osc = ctx.createOscillator()
@@ -37,9 +36,7 @@ export function WhatsAppButton() {
       playTone(880,  now,        0.25, 0.6)
       playTone(1100, now + 0.15, 0.30, 0.5)
       playTone(1320, now + 0.30, 0.35, 0.4)
-    } catch {
-      // silent fail
-    }
+    } catch { /* silent fail */ }
   }
 
   const openChat = () => {
@@ -49,31 +46,65 @@ export function WhatsAppButton() {
 
   const closeChat = () => {
     setIsOpen(false)
-    // Clear any existing timer then re-open after 5s
     if (reopenTimerRef.current) clearTimeout(reopenTimerRef.current)
-    reopenTimerRef.current = setTimeout(() => {
-      openChat()
-    }, 5000)
+    // After user closes — 5s baad reopen (interaction already done so sound works)
+    reopenTimerRef.current = setTimeout(openChat, 5000)
   }
 
-  // Auto-open on mount — try immediately, fallback on first interaction
   useEffect(() => {
-    // Try immediate open (works if AudioContext is already allowed)
-    openChat()
+    // These are the ONLY events browsers trust for audio unlock:
+    // click, pointerdown, touchstart, keydown
+    // scroll/mousemove are NOT trusted gestures for AudioContext
 
-    // Fallback: if browser blocks audio on load, play sound on first interaction
-    const onFirstInteract = () => {
-      playSound()
-      window.removeEventListener("pointerdown", onFirstInteract)
-      window.removeEventListener("keydown", onFirstInteract)
+    const unlockAndSchedule = () => {
+      // Step 1: Unlock AudioContext inside the trusted gesture handler
+      try {
+        if (!audioCtxRef.current) audioCtxRef.current = new AudioContext()
+        if (audioCtxRef.current.state === "suspended") audioCtxRef.current.resume()
+      } catch { /* silent */ }
+
+      // Step 2: Schedule open only once
+      if (interactedRef.current) return
+      interactedRef.current = true
+
+      window.removeEventListener("click", unlockAndSchedule)
+      window.removeEventListener("pointerdown", unlockAndSchedule)
+      window.removeEventListener("touchstart", unlockAndSchedule)
+      window.removeEventListener("keydown", unlockAndSchedule)
+
+      if (!openScheduledRef.current) {
+        openScheduledRef.current = true
+        // 5s baad open — AudioContext already unlocked above so sound will play
+        reopenTimerRef.current = setTimeout(openChat, 5000)
+      }
     }
-    window.addEventListener("pointerdown", onFirstInteract, { once: true })
-    window.addEventListener("keydown", onFirstInteract, { once: true })
+
+    // Also handle scroll separately — visually open but no sound attempt
+    // (scroll ko trusted gesture nahi maanta browser)
+    const onScroll = () => {
+      if (interactedRef.current) return
+      interactedRef.current = true
+      window.removeEventListener("scroll", onScroll)
+      if (!openScheduledRef.current) {
+        openScheduledRef.current = true
+        // Open without sound on scroll (browser blocks it)
+        reopenTimerRef.current = setTimeout(() => setIsOpen(true), 5000)
+      }
+    }
+
+    window.addEventListener("click", unlockAndSchedule)
+    window.addEventListener("pointerdown", unlockAndSchedule)
+    window.addEventListener("touchstart", unlockAndSchedule, { passive: true })
+    window.addEventListener("keydown", unlockAndSchedule)
+    window.addEventListener("scroll", onScroll, { passive: true })
 
     return () => {
       if (reopenTimerRef.current) clearTimeout(reopenTimerRef.current)
-      window.removeEventListener("pointerdown", onFirstInteract)
-      window.removeEventListener("keydown", onFirstInteract)
+      window.removeEventListener("click", unlockAndSchedule)
+      window.removeEventListener("pointerdown", unlockAndSchedule)
+      window.removeEventListener("touchstart", unlockAndSchedule)
+      window.removeEventListener("keydown", unlockAndSchedule)
+      window.removeEventListener("scroll", onScroll)
     }
   }, [])
 
@@ -81,7 +112,6 @@ export function WhatsAppButton() {
     if (isOpen) {
       closeChat()
     } else {
-      // Clear pending reopen timer if user manually opens
       if (reopenTimerRef.current) clearTimeout(reopenTimerRef.current)
       openChat()
     }
@@ -155,12 +185,7 @@ export function WhatsAppButton() {
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#22c55e" stroke="#22c55e" strokeWidth="1" strokeLinejoin="round"/>
           </svg>
           <span className="text-[10px] text-gray-400">Powered by</span>
-          <a
-            href="https://codeclue.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[10px] font-bold"
-          >
+          <a href="https://codeclue.in" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold">
             <span style={{ color: "#17bcd2" }}>Code</span>
             <span style={{ color: "#ffa244" }}> Clue</span>
           </a>
@@ -174,7 +199,6 @@ export function WhatsAppButton() {
         className="relative flex h-14 w-14 items-center justify-center rounded-full transition-transform duration-150 hover:scale-110 active:scale-95"
         style={{ background: "#25D366", boxShadow: "0 6px 28px rgba(37,211,102,0.55)" }}
       >
-        {/* Ripple rings — only when closed */}
         {!isOpen && (
           <span className="absolute inset-0 rounded-full" aria-hidden="true">
             <span className="absolute inset-0 rounded-full opacity-30" style={{ background: "#25D366", animation: "wa-ripple 2s ease-out infinite" }} />

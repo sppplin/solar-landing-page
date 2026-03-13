@@ -4,11 +4,14 @@ import { Phone, Menu, X } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
 import { HiOutlineClipboardList } from "react-icons/hi"
 import { useState, useEffect } from "react"
+import { useRouter, usePathname } from "next/navigation"
 import Image from "next/image"
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [logoUrl, setLogoUrl] = useState<string | null>(null)
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     fetch("/api/site-settings")
@@ -19,16 +22,25 @@ export function Navigation() {
       .catch(() => {})
   }, [])
 
-  // Use DB logo if set, else fallback to /logo.svg
   const logoSrc = logoUrl || "/logo.svg"
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (pathname === "/") {
+      // Already on homepage — reload
+      window.location.reload()
+    } else {
+      // Navigate to homepage
+      router.push("/")
+    }
+  }
 
   return (
     <nav className="sticky top-0 z-50 border-b-[3px] border-primary bg-white shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
       <div className="mx-auto flex max-w-[1120px] items-center justify-between gap-2 px-4 py-2 sm:gap-3 sm:px-6 sm:py-3">
         {/* Logo */}
-        <a href="#" className="shrink-0">
+        <a href="/" onClick={handleLogoClick} className="shrink-0">
           {logoSrc.startsWith("data:") ? (
-            // base64 image — use regular img tag
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={logoSrc}
@@ -36,7 +48,6 @@ export function Navigation() {
               className="h-10 w-auto sm:h-12 object-contain"
             />
           ) : (
-            // URL or /logo.svg — use Next Image
             <Image
               src={logoSrc}
               alt="Solar Print Process - Custom Packaging Manufacturer"

@@ -9,7 +9,6 @@ import { Clients } from "@/components/clients"
 import { Portfolio } from "@/components/portfolio"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
-import { WhatsAppButton } from "@/components/whatsapp-button"
 
 export default function Home() {
   return (
@@ -25,7 +24,6 @@ export default function Home() {
       <Clients />
       <CallToAction />
       <Footer />
-      <WhatsAppButton />
     </main>
   )
 }

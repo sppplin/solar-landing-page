@@ -5,6 +5,8 @@ import Script from 'next/script'
 import { neon } from '@neondatabase/serverless'
 import './globals.css'
 import CookieBanner from '@/components/CookieBanner'
+import { ScrollToTop } from '@/components/scroll-to-top'
+import { WhatsAppWrapper } from '@/components/whatsapp-wrapper'
 
 // Force dynamic rendering — no caching, always fresh from DB
 export const dynamic = 'force-dynamic'
@@ -71,6 +73,9 @@ export default async function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning className={`${barlow.variable} ${barlowCondensed.variable} font-sans antialiased`}>
 
+        {/* Scroll to top on page load/refresh */}
+        <ScrollToTop />
+
         {/* GTM noscript fallback */}
         {s.gtmId && (
           <noscript>
@@ -86,6 +91,9 @@ export default async function RootLayout({
         {children}
         <Analytics />
         <CookieBanner />
+
+        {/* WhatsApp floating button — visible on all pages */}
+        <WhatsAppWrapper />
 
         {/* GTM script — only injected if GTM ID is set in admin panel */}
         {s.gtmId && (
