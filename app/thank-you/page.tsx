@@ -176,7 +176,7 @@ export default function ThankYouPage() {
             Redirecting to our projects in{" "}
             <span className="font-bold text-muted-foreground">{countdown}s</span>
             {" "}·{" "}
-            <a href="https://www.solarprintprocess.com/projects" className="underline hover:text-foreground transition-colors">
+            <a href="https://solarprintprocess.com" className="underline hover:text-foreground transition-colors">
               Go now
             </a>
           </p>
