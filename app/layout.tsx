@@ -6,6 +6,9 @@ import { neon } from '@neondatabase/serverless'
 import './globals.css'
 import CookieBanner from '@/components/CookieBanner'
 
+// Force dynamic rendering — no caching, always fresh from DB
+export const dynamic = 'force-dynamic'
+
 const barlow = Barlow({ 
   subsets: ["latin"],
   weight: ['400', '500', '600'],
