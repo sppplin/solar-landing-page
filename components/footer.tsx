@@ -114,10 +114,24 @@ export function Footer() {
       </div>
 
       {/* Copyright */}
-      <div className="mx-auto mt-6 max-w-[1120px] border-t border-primary/20 px-4 py-4 text-center sm:mt-7 sm:px-6 sm:py-5">
-        <p className="text-[11px] text-muted-foreground sm:text-[12.5px]">
-          © 2026 Solar Print Process Pvt. Ltd. · All rights reserved.
-        </p>
+      <div className="mx-auto mt-6 max-w-[1120px] border-t border-primary/20 px-4 py-4 sm:mt-7 sm:px-6 sm:py-5">
+        <div className="flex flex-col items-center gap-1 text-center sm:flex-row sm:justify-between">
+          <p className="text-[11px] text-muted-foreground sm:text-[12.5px]">
+            © 2026 Solar Print Process Pvt. Ltd. · All rights reserved.
+          </p>
+          <p className="text-[11px] text-muted-foreground sm:text-[12.5px]">
+            Made with ❤️ by{" "}
+            <a
+              href="https://codeclue.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold no-underline"
+            >
+              <span style={{ color: "#17bcd2" }}>Code</span>
+              <span style={{ color: "#ffa244" }}> Clue</span>
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   )

@@ -10,7 +10,7 @@ import { Footer } from "@/components/footer"
 
 export default function ThankYouPage() {
   const router = useRouter()
-  const [countdown, setCountdown] = useState(10)
+  const [countdown, setCountdown] = useState(5)
 
   // Fire GTM dataLayer event
   useEffect(() => {
@@ -33,14 +33,14 @@ export default function ThankYouPage() {
         }
         return c - 1
       })
-    }, 10000)
+    }, 1000)
 
     return () => clearInterval(interval)
   }, [router])
 
   // Separate effect to handle redirect — avoids setState-during-render error
   useEffect(() => {
-    if (countdown === 0) router.push("/")
+    if (countdown === 0) router.push("https://www.solarprintprocess.com/projects")
   }, [countdown, router])
 
   return (
@@ -173,10 +173,10 @@ export default function ThankYouPage() {
 
           {/* ── Auto redirect countdown ── */}
           <p className="text-xs text-muted-foreground/60">
-            Redirecting to homepage in{" "}
+            Redirecting to our projects in{" "}
             <span className="font-bold text-muted-foreground">{countdown}s</span>
             {" "}·{" "}
-            <a href="/" className="underline hover:text-foreground transition-colors">
+            <a href="https://www.solarprintprocess.com/projects" className="underline hover:text-foreground transition-colors">
               Go now
             </a>
           </p>
