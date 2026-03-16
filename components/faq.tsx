@@ -145,22 +145,6 @@ const faqs = [
     a: "Yes — we regularly ship to Mumbai, Bengaluru, Chennai, Hyderabad, Pune, Ahmedabad, and more. For pan-India shipping, lead times and freight costs vary by location — contact us for details.",
   },
 
-  // ── Comparisons ────────────────────────────────────────────────────────────
-  {
-    category: "Comparisons",
-    q: "How is Solar Print Process different from Uflex or large packaging companies?",
-    a: "Uflex and similar large companies primarily focus on flexible/film packaging for very high-volume multinational clients. Solar Print Process specialises in premium rigid boxes, carton packaging, and custom printed boxes — with a more personalised approach, lower MOQs, faster turnaround, and direct manufacturer access. Ideal for brands that want high quality without the complexity of dealing with a giant corporation.",
-  },
-  {
-    category: "Comparisons",
-    q: "How are you different from Sadar Bazar or local packaging suppliers?",
-    a: "Sadar Bazar suppliers are mostly traders who resell stock packaging. Solar Print Process is a direct manufacturer — we print and make every box in our own 200,000 sq ft Noida plant. This means: fully custom sizes and designs, branded printing, premium finishes, and factory-direct pricing. You get better quality at comparable or lower cost than Sadar Bazar for custom orders.",
-  },
-  {
-    category: "Comparisons",
-    q: "Are there packaging companies in Ludhiana or other cities better than Noida for my needs?",
-    a: "Ludhiana has strong corrugated and industrial packaging clusters. However, for premium printed carton, rigid box, and brand packaging — Delhi NCR has a denser supplier ecosystem with better design infrastructure. Our Noida plant gives fast access to NCR brands while shipping nationally at competitive rates.",
-  },
 ]
 
 const categories = Array.from(new Set(faqs.map((f) => f.category)))
@@ -264,7 +248,7 @@ export function FAQ() {
         <div className="mt-12 text-center p-8 rounded-2xl border border-border bg-muted/30">
           <p className="text-sm font-semibold text-foreground mb-1">Still have questions?</p>
           <p className="text-sm text-muted-foreground mb-5">
-            Our team responds within 2 hours — Mon to Sat, 9:30 AM to 6:00 PM.
+            Our team responds within 2 hours — Mon to Sat, 9 AM to 6:30 PM.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
