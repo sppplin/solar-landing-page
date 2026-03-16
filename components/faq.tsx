@@ -45,11 +45,6 @@ const faqs = [
   },
   {
     category: "Products",
-    q: "Do you supply corrugated boxes and carton boxes near me (Delhi / Noida)?",
-    a: "Yes. We manufacture corrugated boxes (single wall, double wall, heavy duty) and printed carton / packing carton boxes (mono cartons, folding cartons). Ideal for FMCG, food, ecommerce, and industrial use. We deliver across Delhi, Noida, Greater Noida, and NCR — so if you're looking for corrugated or carton box manufacturers near you in this region, we're the right choice.",
-  },
-  {
-    category: "Products",
     q: "Do you make kappa boxes? What are kappa boxes used for?",
     a: "Yes — we manufacture kappa boxes (grey board / binder's board boxes). Kappa boxes are rigid, sturdy boxes made from thick grey board covered with paper or fabric. Widely used for premium gifting, luxury products, cosmetics, and jewellery. We are one of the few kappa box manufacturers in Delhi with full in-house production.",
   },
