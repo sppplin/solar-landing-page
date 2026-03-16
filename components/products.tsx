@@ -92,7 +92,7 @@ export function Products() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-muted py-10 sm:py-16">
+    <section id="products" ref={sectionRef} className="bg-muted py-10 sm:py-16">
       <div className="mx-auto max-w-[1120px] px-4 sm:px-6">
         <h2 className="fade-in mb-2 font-heading text-2xl font-black uppercase leading-tight tracking-tight sm:text-4xl">
           Our <span className="text-primary">Packaging</span> Products

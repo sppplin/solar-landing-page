@@ -7,6 +7,7 @@ import { Industries } from "@/components/industries"
 import { WhyChoose } from "@/components/why-choose"
 import { Clients } from "@/components/clients"
 import { Portfolio } from "@/components/portfolio"
+import { FAQ } from "@/components/faq"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
 
@@ -22,6 +23,7 @@ export default function Home() {
       <WhyChoose />
       <Portfolio />
       <Clients />
+      <FAQ />
       <CallToAction />
       <Footer />
     </main>
