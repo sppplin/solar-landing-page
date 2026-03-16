@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { HiChevronDown } from "react-icons/hi"
+import { HiChevronDown, HiOutlinePhone } from "react-icons/hi"
 import { FaWhatsapp } from "react-icons/fa"
 
 const faqs = [
@@ -261,10 +261,11 @@ export function FAQ() {
               WhatsApp Us
             </a>
             <a
-              href="/contact"
+              href="tel:+919871713676"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-black uppercase tracking-wide text-sm border border-border text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
             >
-              Contact Page →
+              <HiOutlinePhone className="w-4 h-4" />
+              Call Us
             </a>
           </div>
         </div>
