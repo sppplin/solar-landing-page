@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         firstName: name,
-        phoneNumber: phone,
+        phoneNumber: phone.startsWith("+91") ? phone : `+91${phone}`,
         accountName: company || null,
         description: `
 Packaging: ${finalPackagingType}
