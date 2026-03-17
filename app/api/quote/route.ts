@@ -60,9 +60,22 @@ export async function POST(request: Request) {
         "X-Api-Key": espoApiKey,
       },
       body: JSON.stringify({
-        firstName: name,
-        phoneNumber: phone.startsWith("+91") ? phone : `+91${phone}`,
-      }),
+      firstName: name,
+      phoneNumber: phone.startsWith("+91") ? phone : `+91${phone}`,
+      accountName: company || null,
+
+      assignedUserId: "69b94a0f3b8d0a1a0",
+
+      source: "Google Ads",
+      campaignId: "69b2d10d9b8c23c5d",
+
+      cPackagingType: finalPackagingType,
+      cQuantity: quantity || null,
+
+      description: message || null,
+
+      status: "New",
+    }),
     })
 
     const resText = await espoRes.text()
