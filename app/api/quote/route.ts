@@ -45,42 +45,6 @@ export async function POST(request: Request) {
     `
 
     console.log("[v0] Quote saved successfully")
-
-    // ✅ 2. Send to EspoCRM
-    const espoRes = await fetch("https://crm.solarprintprocess.com/api/v1/Lead", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Api-Key": espoApiKey,
-      },
-      body: JSON.stringify({
-      firstName: name,
-      phoneNumber: phone.startsWith("+91") ? phone : `+91${phone}`,
-      accountName: company || null,
-
-      assignedUserId: "69b94a0f3b8d0a1a0",
-      source: "Google Ads",
-      campaignId: "69b2d10d9b8c23c5d",
-
-      cPackagingType: finalPackagingType,
-      cQuantity: quantity || null,
-
-      description: `
-    Message: ${message || "-"}
-      `,
-
-      status: "New",
-    }),
-    })
-
-    // 🔍 Debug (important if something fails)
-    if (!espoRes.ok) {
-      const errorText = await espoRes.text()
-      console.error("[v0] EspoCRM error:", errorText)
-    } else {
-      console.log("[v0] Lead sent to EspoCRM successfully")
-    }
-
     return NextResponse.json({ success: true }, { status: 201 })
 
   } catch (error) {
