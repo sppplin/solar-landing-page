@@ -54,29 +54,33 @@ export async function POST(request: Request) {
     console.log("🚀 Sending to EspoCRM...")
 
     const espoRes = await fetch("https://crm.solarprintprocess.com/api/v1/Lead", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Api-Key": espoApiKey,
-      },
-      body: JSON.stringify({
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Api-Key": espoApiKey,
+    },
+    body: JSON.stringify({
       firstName: name,
       phoneNumber: phone.startsWith("+91") ? phone : `+91${phone}`,
       accountName: company || null,
 
-      assignedUserId: "69b94a0f3b8d0a1a0",
+      // assignedUserId: "69b2a05c8d0da7c2f",
 
+      // ❌ temporarily disable problematic fields
       source: "Google Ads",
-      campaignId: "69b2d10d9b8c23c5d",
+      // campaignId: "69b2d10d9b8c23c5d",
 
+      // ❌ custom fields off
       cPackagingType: finalPackagingType,
       cQuantity: quantity || null,
 
-      description: message || null,
+      description: `
+  Message: ${message || "-"}
+      `,
 
       status: "New",
     }),
-    })
+  })
 
     const resText = await espoRes.text()
 
