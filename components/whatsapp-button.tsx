@@ -90,7 +90,7 @@ export function WhatsAppButton() {
     // Reopen after 5s — but only if user not in a form
     reopenTimerRef.current = setTimeout(() => {
       if (!userTypingRef.current) openChat()
-    }, 5000)
+    }, 10000)
   }
 
   // ── First interaction trigger ──────────────────────────────────────────────
@@ -113,7 +113,7 @@ export function WhatsAppButton() {
         openScheduledRef.current = true
         reopenTimerRef.current = setTimeout(() => {
           if (!userTypingRef.current) openChat()
-        }, 5000)
+        }, 10000)
       }
     }
 
@@ -125,7 +125,7 @@ export function WhatsAppButton() {
         openScheduledRef.current = true
         reopenTimerRef.current = setTimeout(() => {
           if (!userTypingRef.current) setIsOpen(true)
-        }, 5000)
+        }, 10000)
       }
     }
 

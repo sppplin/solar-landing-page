@@ -20,11 +20,11 @@ const packagingTypes = [
 ]
 
 const quantities = [
-  "500 - 1,000 pieces",
   "1,000 - 5,000 pieces",
   "5,000 - 25,000 pieces",
-  "25,000+ pieces",
-  "Not sure yet",
+  "25,000 - 100,000 pieces",
+  "100,000 - 500,000 pieces",
+  "500,000+ pieces",
 ]
 
 interface QuoteFormProps {
@@ -74,7 +74,7 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
   return (
     <div className={containerClasses}>
       <span className="mb-2 inline-block rounded-full bg-green-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-700 sm:mb-2.5 sm:px-3 sm:text-[11.5px]">
-        Response in 2 Hours
+       Immediate Response
       </span>
       <h2 className="mb-1 font-heading text-lg font-black uppercase text-foreground sm:text-xl lg:text-lg">Get Free Quote Now</h2>
       <p className="mb-3 border-b-2 border-[#f0f0f4] pb-3 text-xs text-muted-foreground sm:mb-4 sm:pb-4 sm:text-[13px] lg:mb-3 lg:pb-3 lg:text-xs">

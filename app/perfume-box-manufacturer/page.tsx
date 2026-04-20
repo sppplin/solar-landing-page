@@ -1,8 +1,8 @@
 import { TopBar } from "@/components/top-bar"
 import { Navigation } from "@/components/navigation"
-import { RigidBoxHero} from "@/components/rigid-box-hero"
+import { PerfumeBoxHero} from "@/components/perfume-box-hero"
 import { TrustBar } from "@/components/trust-bar"
-import { RigidBoxProducts } from "@/components/rigid-box-products"
+import { PerfumeBoxProducts } from "@/components/perfume-box-products"
 import { Industries } from "@/components/industries"
 import { WhyChoose } from "@/components/why-choose"
 import { Clients } from "@/components/clients"
@@ -11,14 +11,14 @@ import { FAQ } from "@/components/faq"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
 
-export default function RigidBoxManufacturerPage() {
+export default function PerfumeBoxManufacturerPage() {
   return (
     <main>
       <TopBar />
       <Navigation />
-      <RigidBoxHero />
+      <PerfumeBoxHero />
       <TrustBar />
-      <RigidBoxProducts />
+      <PerfumeBoxProducts />
       <Industries />
       <WhyChoose />
       <Portfolio />
