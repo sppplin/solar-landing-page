@@ -7,7 +7,7 @@ import { Industries } from "@/components/industries"
 import { WhyChoose } from "@/components/why-choose"
 import { Clients } from "@/components/clients"
 import { Portfolio } from "@/components/portfolio"
-import { FAQ } from "@/components/faq"
+import { PerfumeBoxFAQ } from "@/components/perfume-box-faq"
 import { CallToAction } from "@/components/call-to-action"
 import { Footer } from "@/components/footer"
 
@@ -23,7 +23,7 @@ export default function PerfumeBoxManufacturerPage() {
       <WhyChoose />
       <Portfolio />
       <Clients />
-      <FAQ />
+      <PerfumeBoxFAQ />
       <CallToAction />
       <Footer />
     </main>

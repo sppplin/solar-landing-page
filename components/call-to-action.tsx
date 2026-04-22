@@ -22,7 +22,7 @@ export function CallToAction() {
           Ready to Get Your Packaging Quote?
         </h2>
         <p className="mx-auto mb-6 max-w-[560px] text-sm text-white sm:mb-8 sm:text-[17px]">
-          Fill the form above or WhatsApp your brief. We respond within 2 hours, Monday to Saturday.
+          Fill the form above or WhatsApp your brief. We respond immediately, Monday to Saturday.
         </p>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3.5">
