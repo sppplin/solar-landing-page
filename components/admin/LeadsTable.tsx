@@ -2,10 +2,18 @@
 
 import { useEffect, useState, useMemo } from "react"
 import {
-  HiOutlineSearch, HiOutlineDownload, HiOutlineTrash,
-  HiOutlinePhone, HiOutlineChatAlt, HiOutlineFilter,
-  HiOutlineChevronLeft, HiOutlineChevronRight,
-  HiOutlinePencil, HiOutlineX, HiOutlineCheck,
+  HiOutlineSearch,
+  HiOutlineDownload,
+  HiOutlineTrash,
+  HiOutlinePhone,
+  HiOutlineMail,
+  HiOutlineChatAlt,
+  HiOutlineFilter,
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight,
+  HiOutlinePencil,
+  HiOutlineX,
+  HiOutlineCheck,
   HiOutlineCalendar,
 } from "react-icons/hi"
 import { FaWhatsapp } from "react-icons/fa"
@@ -13,8 +21,9 @@ import { FaWhatsapp } from "react-icons/fa"
 interface Lead {
   id: number
   name: string
-  phone: string
   company: string
+  email: string
+  phone: string
   packaging_type: string
   quantity: string | number
   message?: string
@@ -30,8 +39,7 @@ const PACKAGING_TYPES = [
 ]
 
 const QUANTITIES = [
-  "500 - 1,000 pieces", "1,000 - 5,000 pieces",
-  "5,000 - 25,000 pieces", "25,000+ pieces", "Not sure yet",
+  "1,000 - 5,000 pieces", "5,000 - 25,000 pieces", "25,000 - 100,000 pieces", "100,000 - 500,000 pieces", "500,000+ pieces",
 ]
 
 function fmtDate(iso?: string) {
@@ -163,7 +171,7 @@ export default function LeadsTable() {
   const openEdit  = (lead: Lead) => { setEditingLead(lead); setEditForm({ ...lead }); setEditError("") }
   const closeEdit = () => { setEditingLead(null); setEditForm({}); setEditError("") }
   const saveEdit  = async () => {
-    if (!editForm.name?.trim() || !editForm.phone?.trim()) { setEditError("Name and Phone are required."); return }
+    if (!editForm.name?.trim() || !editForm.phone?.trim() || !editForm.email?.trim()) { setEditError("Name, Phone, and Email are required."); return }
     setEditSaving(true); setEditError("")
     try {
       const res = await fetch("/api/edit-lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(editForm) })
@@ -196,7 +204,7 @@ export default function LeadsTable() {
   const exportRows    = selected.size > 0 ? filtered.filter((l) => selected.has(l.id)) : filtered
   const exportLabel   = selected.size > 0 ? `Export (${selected.size})` : hasDateFilter ? `Export Filtered (${filtered.length})` : `Export All (${filtered.length})`
 
-  const headers = ["", "Name", "Phone", "Company", "Packaging Type", "Qty", "Date", "Message", "Actions"]
+  const headers = ["", "Name", "Phone", "Company", "Email", "Packaging Type", "Qty", "Date", "Message", "Actions"]
 
   return (
     <div className="p-4 sm:p-6">
@@ -374,7 +382,7 @@ export default function LeadsTable() {
           </thead>
           <tbody>
             {loading && (
-              <tr><td colSpan={9} className="px-4 py-12 text-center text-sm text-muted-foreground">
+              <tr><td colSpan={10} className="px-4 py-12 text-center text-sm text-muted-foreground">
                 <div className="flex items-center justify-center gap-2">
                   <span className="w-4 h-4 rounded-full border-2 border-primary border-t-transparent animate-spin" />
                   Loading leads…
@@ -382,7 +390,7 @@ export default function LeadsTable() {
               </td></tr>
             )}
             {!loading && filtered.length === 0 && (
-              <tr><td colSpan={9} className="px-4 py-12 text-center text-sm text-muted-foreground">
+              <tr><td colSpan={10} className="px-4 py-12 text-center text-sm text-muted-foreground">
                 No leads found{search ? ` for "${search}"` : ""}.
               </td></tr>
             )}
@@ -399,6 +407,12 @@ export default function LeadsTable() {
                   <div className="flex items-center gap-1.5">
                     <HiOutlinePhone className="w-3.5 h-3.5 text-primary flex-shrink-0" />
                     {lead.phone}
+                  </div>
+                </td>
+                <td className="px-4 py-3.5 text-muted-foreground whitespace-nowrap">
+                  <div className="flex items-center gap-1.5">
+                    <HiOutlineMail className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                    {lead.email || "—"}
                   </div>
                 </td>
                 <td className="px-4 py-3.5 text-muted-foreground max-w-[140px] truncate">{lead.company || "—"}</td>
@@ -485,6 +499,7 @@ export default function LeadsTable() {
                 </span>
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground mb-2.5">
+                <span><span className="font-semibold text-foreground">Email:</span> {lead.email || "—"}</span>
                 <span><span className="font-semibold text-foreground">Co:</span> {lead.company || "—"}</span>
                 <span><span className="font-semibold text-foreground">Qty:</span> {lead.quantity || "—"}</span>
                 <span><span className="font-semibold text-foreground">Date:</span> {fmtDate(lead.submitted_at)}</span>
@@ -576,7 +591,7 @@ export default function LeadsTable() {
               </button>
             </div>
             <div className="px-6 py-5 space-y-4 max-h-[65vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-[10px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Name *</label>
                   <input type="text" value={editForm.name ?? ""} onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
@@ -586,6 +601,20 @@ export default function LeadsTable() {
                   <label className="block text-[10px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">Phone *</label>
                   <input type="tel" value={editForm.phone ?? ""} onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
                     className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-1.5">
+                    Email *
+                  </label>
+
+                  <input
+                    type="email"
+                    value={editForm.email ?? ""}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, email: e.target.value })
+                    }
+                    className="w-full px-3 py-2.5 rounded-xl border border-border bg-background text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                  />
                 </div>
               </div>
               <div>

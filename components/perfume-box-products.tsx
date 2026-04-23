@@ -252,8 +252,9 @@ function ProductCard({
             <span className="text-muted-foreground">({reviews})</span>
           </div>
         </div>
-
-        <a href="tel:+919871713676"
+        <a
+          href="tel:+919871713676"
+          onClick={(e) => e.stopPropagation()}
           className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-primary text-sm font-bold text-primary transition hover:border-black hover:bg-black hover:text-white"
         >
           <Phone className="h-4 w-4" />

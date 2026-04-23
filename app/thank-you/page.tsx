@@ -121,7 +121,7 @@ export default function ThankYouPage() {
           </p>
           <p className="text-sm text-muted-foreground mb-8">
             Our team will call or WhatsApp you within{" "}
-            <span className="font-bold text-foreground">2 hours</span> with your custom quote.
+            <span className="font-bold text-foreground">30 minutes</span> with your custom quote.
           </p>
 
           {/* ── CTA Buttons ── */}

@@ -177,54 +177,102 @@ function PackagingDonut({ leads }: Props) {
 // ── Chart: Quantity Range ─────────────────────────────────────────────────
 function QuantityChart({ leads }: Props) {
   const order = [
-    "500 - 1,000 pieces",
     "1,000 - 5,000 pieces",
     "5,000 - 25,000 pieces",
-    "25,000+ pieces",
-    "Not sure yet",
+    "25,000 - 100,000 pieces",
+    "100,000 - 500,000 pieces",
+    "500,000+ pieces",
   ]
+
   const labels: Record<string, string> = {
-    "500 - 1,000 pieces":    "500–1K",
-    "1,000 - 5,000 pieces":  "1K–5K",
+    "1,000 - 5,000 pieces": "1K–5K",
     "5,000 - 25,000 pieces": "5K–25K",
-    "25,000+ pieces":        "25K+",
-    "Not sure yet":          "Not sure",
+    "25,000 - 100,000 pieces": "25K–100K",
+    "100,000 - 500,000 pieces": "100K–500K",
+    "500,000+ pieces": "500K+",
   }
+
   const map: Record<string, number> = {}
-  leads.forEach(l => {
-    const key = String(l.quantity || "Not sure yet")
+
+  leads.forEach((l) => {
+    const key = String(l.quantity || "")
+      .trim()
+
+    if (!key) return
+
     map[key] = (map[key] || 0) + 1
   })
-  const data = order
-    .map(k => ({ name: labels[k] || k, value: map[k] || 0 }))
-    .filter(d => d.value > 0)
+
+  const data = order.map((k) => ({
+    name: labels[k],
+    value: map[k] || 0,
+  }))
 
   return (
     <div className="bg-card border border-border rounded-2xl overflow-hidden">
       <div className="px-5 pt-5 pb-3 border-b border-border">
-        <p className="text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground">Volume</p>
-        <h3 className="font-heading text-lg font-black uppercase tracking-wide text-foreground">Order Quantity Range</h3>
+        <p className="text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground">
+          Volume
+        </p>
+
+        <h3 className="font-heading text-lg font-black uppercase tracking-wide text-foreground">
+          Order Quantity Range
+        </h3>
       </div>
+
       <div className="p-4 pt-5">
         <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+          <BarChart
+            data={data}
+            margin={{ top: 5, right: 10, left: -20, bottom: 0 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="hsl(var(--border))"
+              vertical={false}
+            />
+
             <XAxis
               dataKey="name"
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+              tick={{
+                fontSize: 10,
+                fill: "hsl(var(--muted-foreground))",
+              }}
               tickLine={false}
               axisLine={false}
             />
+
             <YAxis
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+              tick={{
+                fontSize: 10,
+                fill: "hsl(var(--muted-foreground))",
+              }}
               tickLine={false}
               axisLine={false}
               allowDecimals={false}
             />
-            <Tooltip contentStyle={tooltipStyle} formatter={(v: number) => [`${v} leads`, "Count"]} />
-            <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={48}>
+
+            <Tooltip
+              contentStyle={tooltipStyle}
+              formatter={(v: number) => [`${v} leads`, "Count"]}
+            />
+
+            <Bar
+              dataKey="value"
+              radius={[6, 6, 0, 0]}
+              maxBarSize={48}
+            >
               {data.map((_, i) => (
-                <Cell key={i} fill={i === 0 ? GOLD : i === 1 ? GOLD2 : BROWN} />
+                <Cell
+                  key={i}
+                  fill={
+                    i === 0
+                      ? GOLD
+                      : i === 1
+                      ? GOLD2
+                      : BROWN
+                  }
+                />
               ))}
             </Bar>
           </BarChart>
