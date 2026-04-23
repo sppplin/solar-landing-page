@@ -26,7 +26,7 @@ interface ProductCardProps {
 
 const products: ProductCardProps[] = [
   {
-    images: ["/products/rigid-box/book-fold-hinged-rigid-box-packaging.jpg"],
+    images: ["/products/rigid-box/book-fold-hinged-rigid-box-packaging.jpg", "/products/rigid-box/book-fold-hinged-rigid-box-packaging-I.jpg"],
     title: "Book Fold Hinged Rigid Box",
     rating: "4.8",
     reviews: "36",
@@ -38,7 +38,7 @@ const products: ProductCardProps[] = [
     ],
   },
   {
-    images: ["/products/rigid-box/drawer-slider-rigid-boxes.jpg"],
+    images: ["/products/rigid-box/drawer-slider-rigid-boxes.jpg", "/products/rigid-box/drawer-slider-rigid-boxes-I.jpg", "/products/rigid-box/drawer-slider-rigid-boxes-II.jpg"],
     title: "Drawer Slider Rigid Box",
     rating: "4.7",
     reviews: "32",
@@ -50,7 +50,7 @@ const products: ProductCardProps[] = [
     ],
   },
   {
-    images: ["/products/rigid-box/magnetic-closure-luxury-boxes.jpg"],
+    images: ["/products/rigid-box/magnetic-closure-luxury-boxes.jpg", "/products/rigid-box/magnetic-closure-luxury-boxes-I.jpg", "/products/rigid-box/magnetic-closure-luxury-boxes-II.jpg"],
     title: "Magnetic Closure Luxury Box",
     rating: "4.9",
     reviews: "44",
@@ -62,7 +62,7 @@ const products: ProductCardProps[] = [
     ],
   },
   {
-    images: ["/products/rigid-box/premium-gift-presentation-box.jpg"],
+    images: ["/products/rigid-box/premium-gift-presentation-box.jpg", "/products/rigid-box/premium-gift-presentation-box-I.jpg", "/products/rigid-box/premium-gift-presentation-box-II.jpg"],
     title: "Premium Gift Presentation Box",
     rating: "4.8",
     reviews: "39",
@@ -74,7 +74,7 @@ const products: ProductCardProps[] = [
     ],
   },
   {
-    images: ["/products/rigid-box/cosmetic-herbal-product-box.jpg"],
+    images: ["/products/rigid-box/cosmetic-herbal-product-box.jpg", "/products/rigid-box/cosmetic-herbal-product-box-I.jpg", "/products/rigid-box/cosmetic-herbal-product-box-II.jpg"],
     title: "Cosmetic Product Rigid Box",
     rating: "4.7",
     reviews: "34",
@@ -86,7 +86,7 @@ const products: ProductCardProps[] = [
     ],
   },
   {
-    images: ["/products/rigid-box/premium-drawer-gift-box.jpg"],
+    images: ["/products/rigid-box/premium-drawer-gift-box.jpg", "/products/rigid-box/premium-drawer-gift-box-I.jpg", "/products/rigid-box/premium-drawer-gift-box-II.jpg"],
     title: "Premium Drawer Gift Box",
     rating: "4.9",
     reviews: "42",
