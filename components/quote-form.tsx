@@ -33,7 +33,14 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
   const router = useRouter()
 
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+
+  const [errors, setErrors] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    packagingType: "",
+  })
 
   const [formData, setFormData] = useState({
     name: "",
@@ -45,61 +52,105 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
     message: "",
   })
 
-  const handleSubmit = async () => {
-    if (!formData.name.trim()) {
-      setError("Please enter your name.")
-      return
-    }
+    // Replace your handleSubmit() with this updated version
 
-    if (!formData.company.trim()) {
-      setError("Please enter company name.")
-      return
-    }
+const handleSubmit = async () => {
+  const newErrors = {
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    packagingType: "",
+  }
 
-    if (!formData.email.trim()) {
-      setError("Please enter email address.")
-      return
-    }
+  // ✅ Name Validation
+  if (!formData.name.trim()) {
+    newErrors.name = "Please enter your name."
+  } else if (formData.name.trim().length < 3) {
+    newErrors.name = "Name must be at least 3 letters."
+  }
 
+  // ✅ Company Validation
+  if (!formData.company.trim()) {
+    newErrors.company = "Please enter company name."
+  } else if (formData.company.trim().length < 3) {
+    newErrors.company = "Company name must be at least 3 letters."
+  }
+
+  // ✅ Email Validation
+  const email = formData.email.trim().toLowerCase()
+
+  if (!email) {
+    newErrors.email = "Please enter company email."
+  } else {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-    if (!emailRegex.test(formData.email)) {
-      setError("Please enter a valid email address.")
-      return
-    }
+    const blockedDomains = [
+      "gmail.com",
+      "yahoo.com",
+      "ymail.com",
+      "rocketmail.com",
+      "hotmail.com",
+      "outlook.com",
+      "live.com",
+      "icloud.com",
+      "rediff.com",
+      "aol.com",
+      "zoho.com",
+    ]
 
-    if (!formData.phone.trim()) {
-      setError("Please enter your phone number.")
-      return
-    }
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter valid email."
+    } else {
+      const domain = email.split("@")[1]
 
-    if (!formData.packagingType) {
-      setError("Please select a packaging type.")
-      return
-    }
-
-    setError("")
-    setLoading(true)
-
-    try {
-      const res = await fetch("/api/quote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (!res.ok) {
-        throw new Error("Failed")
+      if (blockedDomains.includes(domain)) {
+        newErrors.email = "Use official company email only."
       }
-
-      router.push("/thank-you")
-    } catch {
-      setError("Something went wrong. Please try again or call us directly.")
-      setLoading(false)
     }
   }
+
+  // ✅ Phone Validation
+  if (!formData.phone.trim()) {
+    newErrors.phone = "Please enter phone number."
+  }
+
+  // ✅ Packaging Type
+  if (!formData.packagingType) {
+    newErrors.packagingType = "Please select packaging type."
+  }
+
+  setErrors(newErrors)
+
+  if (
+    newErrors.name ||
+    newErrors.company ||
+    newErrors.email ||
+    newErrors.phone ||
+    newErrors.packagingType
+  ) {
+    return
+  }
+
+  setLoading(true)
+
+  try {
+    const res = await fetch("/api/quote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+
+    if (!res.ok) throw new Error()
+
+    router.push("/thank-you")
+  } catch {
+    alert("Something went wrong. Please try again.")
+    setLoading(false)
+  }
+}
 
   const containerClasses =
     variant === "dialog"
@@ -108,22 +159,22 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
 
   return (
     <div className={containerClasses}>
-      <span className="mb-2 inline-block rounded-full bg-green-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-green-700 sm:mb-2.5 sm:px-3 sm:text-[11.5px]">
+      <span className="mb-2 inline-block rounded-full bg-green-50 px-3 py-1 text-[11px] font-bold uppercase text-green-700">
         Immediate Response
       </span>
 
-      <h2 className="mb-1 font-heading text-lg font-black uppercase text-foreground sm:text-xl lg:text-lg">
+      <h2 className="mb-1 font-heading text-lg font-black uppercase text-foreground">
         Get Free Quote Now
       </h2>
 
-      <p className="mb-3 border-b-2 border-[#f0f0f4] pb-3 text-xs text-muted-foreground sm:mb-4 sm:pb-4 sm:text-[13px] lg:mb-3 lg:pb-3 lg:text-xs">
+      <p className="mb-4 border-b pb-4 text-xs text-muted-foreground">
         Fill your requirement - we respond within 30 minutes on business hours!
       </p>
 
-      <div className="space-y-2 sm:space-y-2.5 lg:space-y-2">
+      <div className="space-y-3">
         {/* Name */}
         <div>
-          <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
+          <label className="mb-1 block text-xs font-bold uppercase">
             Your Name *
           </label>
 
@@ -134,13 +185,17 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
             onChange={(e) =>
               setFormData({ ...formData, name: e.target.value })
             }
-            className="w-full rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/10"
+            className="w-full rounded-lg border px-3 py-2.5 text-sm"
           />
+
+          {errors.name && (
+            <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+          )}
         </div>
 
         {/* Company */}
         <div>
-          <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
+          <label className="mb-1 block text-xs font-bold uppercase">
             Company Name *
           </label>
 
@@ -151,30 +206,38 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
             onChange={(e) =>
               setFormData({ ...formData, company: e.target.value })
             }
-            className="w-full rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/10"
+            className="w-full rounded-lg border px-3 py-2.5 text-sm"
           />
+
+          {errors.company && (
+            <p className="mt-1 text-xs text-red-500">{errors.company}</p>
+          )}
         </div>
 
         {/* Email + Phone */}
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
-              Email *
+            <label className="mb-1 block text-xs font-bold uppercase">
+              Official Email *
             </label>
 
             <input
               type="email"
-              placeholder="your@email.com"
+              placeholder="name@company.com"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              className="w-full rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/10"
+              className="w-full rounded-lg border px-3 py-2.5 text-sm"
             />
+
+            {errors.email && (
+              <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+            )}
           </div>
 
           <div>
-            <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
+            <label className="mb-1 block text-xs font-bold uppercase">
               Phone / WhatsApp *
             </label>
 
@@ -185,14 +248,18 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
-              className="w-full rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/10"
+              className="w-full rounded-lg border px-3 py-2.5 text-sm"
             />
+
+            {errors.phone && (
+              <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
+            )}
           </div>
         </div>
 
         {/* Packaging Type */}
         <div>
-          <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
+          <label className="mb-1 block text-xs font-bold uppercase">
             Packaging Type Needed *
           </label>
 
@@ -204,7 +271,7 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
                 packagingType: e.target.value,
               })
             }
-            className="w-full rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/10"
+            className="w-full rounded-lg border px-3 py-2.5 text-sm"
           >
             <option value="">Select packaging type...</option>
 
@@ -214,11 +281,17 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
               </option>
             ))}
           </select>
+
+          {errors.packagingType && (
+            <p className="mt-1 text-xs text-red-500">
+              {errors.packagingType}
+            </p>
+          )}
         </div>
 
         {/* Quantity */}
         <div>
-          <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
+          <label className="mb-1 block text-xs font-bold uppercase">
             Approximate Quantity
           </label>
 
@@ -230,7 +303,7 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
                 quantity: e.target.value,
               })
             }
-            className="w-full rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/10"
+            className="w-full rounded-lg border px-3 py-2.5 text-sm"
           >
             <option value="">Select quantity range...</option>
 
@@ -244,8 +317,8 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
 
         {/* Message */}
         <div>
-          <label className="mb-1 block text-[10px] font-bold uppercase tracking-wide text-foreground/80 sm:mb-1.5 sm:text-[11.5px]">
-            Specific Requirement (optional)
+          <label className="mb-1 block text-xs font-bold uppercase">
+            Specific Requirement
           </label>
 
           <textarea
@@ -257,26 +330,18 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
                 message: e.target.value,
               })
             }
-            className="h-16 w-full resize-none rounded-lg border-[1.5px] border-input bg-white px-3 py-2.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/10"
+            className="h-20 w-full resize-none rounded-lg border px-3 py-2.5 text-sm"
           />
         </div>
-
-        {/* Error */}
-        {error && (
-          <p className="rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-600">
-            {error}
-          </p>
-        )}
 
         {/* Submit */}
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-heading text-sm font-black uppercase tracking-wide text-foreground transition-all hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-70"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-black uppercase transition hover:brightness-90 disabled:opacity-70"
         >
           <HiOutlineClipboardList className="h-4 w-4" />
-
-          {loading ? "SUBMITTING..." : "GET FREE QUOTE"}
+          {loading ? "Submitting..." : "Get Free Quote"}
         </button>
 
         <p className="text-center text-[10px] text-muted-foreground">
