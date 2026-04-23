@@ -243,7 +243,7 @@ export function FAQ() {
         <div className="mt-12 text-center p-8 rounded-2xl border border-border bg-muted/30">
           <p className="text-sm font-semibold text-foreground mb-1">Still have questions?</p>
           <p className="text-sm text-muted-foreground mb-5">
-            Our team responds within 2 hours — Mon to Sat, 9 AM to 6:30 PM.
+            Our team responds immediately — Mon to Sat, 9 AM to 6:30 PM.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
