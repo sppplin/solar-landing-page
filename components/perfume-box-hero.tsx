@@ -42,7 +42,7 @@ export function PerfumeBoxHero() {
           </div>
 
           {/* DESKTOP BADGE */}
-          <div className="mb-4 hidden sm:inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/15 px-3 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-accent sm:mb-6 sm:px-3.5 sm:py-1.5 sm:text-xs">
+          <div className="mb-4 hidden sm:inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/15 px-3 py-1 font-heading text-[10px] font-bold uppercase tracking-wide text-white sm:mb-6 sm:px-3.5 sm:py-1.5 sm:text-xs">
             <span className="h-1.5 w-1.5 animate-blink rounded-full bg-accent sm:h-2 sm:w-2"></span>
             Direct Factory - Noida, Delhi NCR
           </div>
@@ -53,7 +53,7 @@ export function PerfumeBoxHero() {
             <br />
             <em className="not-italic text-accent">Manufacturer</em>
             <br />
-              in India
+              in India <span className="not-italic text-accent">Since 1975</span>
           </h1>
 
           {/* DESKTOP DESCRIPTION */}

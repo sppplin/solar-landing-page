@@ -18,8 +18,6 @@ import { QuoteForm } from "./quote-form"
 interface ProductCardProps {
   images: string[]
   title: string
-  price: string
-  unit?: string
   rating: string
   reviews: string
   specs: { label: string; value: string }[]
@@ -30,8 +28,6 @@ const products: ProductCardProps[] = [
   {
     images: ["/products/perfume-box/almudaires.jpeg"],
     title: "Luxury White Oud Perfume Gift Box",
-    price: "180",
-    unit: "Piece",
     rating: "4.9",
     reviews: "41",
     specs: [
@@ -39,14 +35,11 @@ const products: ProductCardProps[] = [
   { label: "Box Style", value: "Hinged Wooden Presentation Box" },
   { label: "Use", value: "Perfume Bottle + Oud Chips Storage" },
   { label: "Surface Finishing", value: "Matte White Paint + Gold Fittings" },
-  { label: "MOQ", value: "100 Pieces" },
   ],
   },
   {
     images: ["/products/perfume-box/audacity-solos.png"],
     title: "Premium Black Perfume Packaging Box",
-    price: "65",
-    unit: "Piece",
     rating: "4.8",
     reviews: "57",
     specs: [
@@ -54,7 +47,6 @@ const products: ProductCardProps[] = [
     { label: "Box Style", value: "Two Piece Perfume Box" },
     { label: "Use", value: "100ml Perfume Bottle Packaging" },
     { label: "Surface Finishing", value: "Matte Black + UV Print" },
-    { label: "MOQ", value: "500 Pieces" },
   ],
   },
   {
@@ -63,8 +55,6 @@ const products: ProductCardProps[] = [
       "/products/perfume-box/car-burner-II.jpg",
     ],
     title: "Luxury Red Car Perfume Burner Box",
-    price: "95",
-    unit: "Piece",
     rating: "4.7",
     reviews: "36",
     specs: [
@@ -72,14 +62,11 @@ const products: ProductCardProps[] = [
     { label: "Box Style", value: "Lift Off Lid Rigid Box" },
     { label: "Use", value: "Car Burner Gift Packaging" },
     { label: "Surface Finishing", value: "Matte Red + Gold Foil" },
-    { label: "MOQ", value: "500 Pieces" },
   ],
   },
   {
     images: ["/products/perfume-box/cassie.png"],
     title: "Luxury Black Drawer Perfume Box",
-    price: "85",
-    unit: "Piece",
     rating: "4.8",
     reviews: "33",
     specs: [
@@ -87,7 +74,6 @@ const products: ProductCardProps[] = [
     { label: "Box Style", value: "Drawer Slide Perfume Box" },
     { label: "Use", value: "Luxury Perfume Bottle Packaging" },
     { label: "Surface Finishing", value: "Matte Black + Gold Foil" },
-    { label: "MOQ", value: "500 Pieces" },
   ],
   },
   {
@@ -97,8 +83,6 @@ const products: ProductCardProps[] = [
       "/products/perfume-box/forest-essentials-III.png",
     ],
     title: "Premium Roll On Perfume Packaging Box",
-    price: "28",
-    unit: "Piece",
     rating: "4.9",
     reviews: "62",
     specs: [
@@ -106,14 +90,11 @@ const products: ProductCardProps[] = [
     { label: "Box Style", value: "Straight Tuck End Box" },
     { label: "Use", value: "10ml Perfume Roll On Packaging" },
     { label: "Surface Finishing", value: "Gloss Lamination + Gold Print" },
-    { label: "MOQ", value: "1000 Pieces" },
   ],
   },
   {
     images: ["/products/perfume-box/passopm-men.jpg"],
     title: "Men's Blue Perfume Packaging Box",
-    price: "72",
-    unit: "Piece",
     rating: "4.8",
     reviews: "48",
     specs: [
@@ -121,7 +102,6 @@ const products: ProductCardProps[] = [
     { label: "Box Style", value: "Straight Tuck End Box" },
     { label: "Use", value: "100ml Perfume Bottle Packaging" },
     { label: "Surface Finishing", value: "Matte Blue + UV Print" },
-    { label: "MOQ", value: "1000 Pieces" },
   ],
   },
 ]
@@ -129,8 +109,6 @@ const products: ProductCardProps[] = [
 function ProductCard({
   images,
   title,
-  price,
-  unit,
   rating,
   reviews,
   specs,
@@ -195,15 +173,6 @@ function ProductCard({
         <h3 className="min-h-[10px] font-heading text-base font-semibold uppercase leading-tight tracking-tight text-foreground sm:text-lg">
           {title}
         </h3>
-
-        <div className="mt-2 flex items-end gap-1">
-          <span className="text-xl font-black text-primary sm:text-2xl">
-            ₹{price}
-          </span>
-          <span className="pb-0.5 text-xs text-muted-foreground sm:text-sm">
-            /{unit}
-          </span>
-        </div>
 
         <p className="mt-1 text-[11px] text-muted-foreground sm:text-xs">
           Factory Direct Price • Bulk Orders Available
@@ -459,15 +428,6 @@ export function PerfumeBoxProducts() {
               <h3 className="mt-4 text-xl font-black leading-tight text-foreground lg:text-2xl">
                 {products[cardIndex].title}
               </h3>
-
-              <div className="mt-3 flex items-end gap-1">
-                <span className="text-4xl font-black text-primary">
-                  ₹{products[cardIndex].price}
-                </span>
-                <span className="pb-1 text-sm text-muted-foreground">
-                  /{products[cardIndex].unit}
-                </span>
-              </div>
 
               <p className="mt-1 text-sm text-muted-foreground">
                 Factory Direct Pricing

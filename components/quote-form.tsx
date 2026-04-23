@@ -117,7 +117,7 @@ export function QuoteForm({ variant = "default" }: QuoteFormProps) {
       </h2>
 
       <p className="mb-3 border-b-2 border-[#f0f0f4] pb-3 text-xs text-muted-foreground sm:mb-4 sm:pb-4 sm:text-[13px] lg:mb-3 lg:pb-3 lg:text-xs">
-        Fill your requirement - we respond same day
+        Fill your requirement - we respond within 30 minutes on business hours!
       </p>
 
       <div className="space-y-2 sm:space-y-2.5 lg:space-y-2">
