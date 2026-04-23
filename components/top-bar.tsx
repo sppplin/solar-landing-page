@@ -8,8 +8,8 @@ export function TopBar() {
         Est. <strong className="text-primary">1975</strong> &nbsp;|&nbsp;
       </span>
       Call:{" "}
-      <a href="tel:+919871713676" className="font-semibold text-primary no-underline">
-        +91 98717 13676
+      <a href="tel:+919911767272" className="font-semibold text-primary no-underline">
+        +91 99117 67272
       </a>
     </div>
   )

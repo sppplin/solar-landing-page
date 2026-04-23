@@ -222,7 +222,7 @@ function ProductCard({
           </div>
         </div>
         <a
-          href="tel:+919871713676"
+          href="tel:+919911767272"
           onClick={(e) => e.stopPropagation()}
           className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-primary text-sm font-bold text-primary transition hover:border-black hover:bg-black hover:text-white"
         >
@@ -473,7 +473,7 @@ export function PerfumeBoxProducts() {
               </button>
 
               <a
-                href="tel:+919871713676"
+                href="tel:+919911767272"
                 className="flex h-12 items-center justify-center rounded-xl border border-primary text-sm font-bold text-primary transition hover:bg-black hover:text-white hover:border-black"
               >
                 <Phone className="mr-2 h-4 w-4" />
@@ -493,7 +493,7 @@ export function PerfumeBoxProducts() {
             </button>
 
             <a
-              href="tel:+919871713676"
+              href="tel:+919911767272"
               className="mt-3 flex h-12 w-full items-center justify-center rounded-xl border border-primary text-sm font-bold text-primary transition hover:bg-black hover:text-white hover:border-black"
             >
               <Phone className="mr-2 h-4 w-4" />

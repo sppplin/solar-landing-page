@@ -103,7 +103,7 @@ export function PerfumeBoxHero() {
             </a>
 
             <a
-              href="https://wa.me/919871713676?text=Hello%2C+I+need+a+perfume+box+quote"
+              href="https://wa.me/919911767272?text=Hello%2C+I+need+a+perfume+box+quote"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3.5 font-heading text-base font-black uppercase tracking-wide text-foreground no-underline"

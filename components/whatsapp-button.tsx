@@ -5,7 +5,7 @@ import { FaWhatsapp } from "react-icons/fa"
 import Image from "next/image"
 import { X } from "lucide-react"
 
-const WA_LINK = "https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote"
+const WA_LINK = "https://wa.me/919911767272?text=Hello%2C+I+need+a+packaging+quote"
 
 export function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false)

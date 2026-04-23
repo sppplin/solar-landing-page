@@ -20,8 +20,8 @@ const info = [
   {
     icon: HiOutlinePhone,
     label: "Phone",
-    lines: ["+91 98717 13676"],
-    href: "tel:+919871713676",
+    lines: ["+91 99117 67272"],
+    href: "tel:+919911767272",
   },
   {
     icon: HiOutlineMail,
@@ -146,7 +146,7 @@ export default function ContactPage() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/919871713676?text=Hi%2C+I+have+a+packaging+enquiry."
+                href="https://wa.me/919911767272?text=Hi%2C+I+have+a+packaging+enquiry."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl font-heading font-black uppercase tracking-wide text-sm text-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30"

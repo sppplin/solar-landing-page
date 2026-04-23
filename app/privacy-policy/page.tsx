@@ -192,9 +192,9 @@ export default function Page() {
                       <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0 mt-2" />
                       C-10, Sector 85, Noida — 201305, Uttar Pradesh, India
                     </li>
-                    <li key="Phone: +91 98717 13676" className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                    <li key="Phone: +91 99117 67272" className="flex items-start gap-2.5 text-sm text-muted-foreground">
                       <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0 mt-2" />
-                      Phone: +91 98717 13676
+                      Phone: +91 99117 67272
                     </li>
                     <li key="Email: info@solarprintprocess.com" className="flex items-start gap-2.5 text-sm text-muted-foreground">
                       <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0 mt-2" />

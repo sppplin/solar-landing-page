@@ -99,10 +99,10 @@ export function Footer() {
           </h4>
           <div className="space-y-0.5">
             <a
-              href="tel:+919871713676"
+              href="tel:+919911767272"
               className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px]"
             >
-              +91 98717 13676
+              +91 99117 67272
             </a>
             <a
               href="mailto:business@spppl.in"
@@ -111,7 +111,7 @@ export function Footer() {
               business@spppl.in
             </a>
             <a
-              href="https://wa.me/919871713676"
+              href="https://wa.me/919911767272"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px]"

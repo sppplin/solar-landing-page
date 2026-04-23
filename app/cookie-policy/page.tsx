@@ -54,7 +54,7 @@ const sections = [
     list: [
       "Solar Print Process Pvt. Ltd.",
       "C-10, Sector 85, Noida — 201305, Uttar Pradesh, India",
-      "Phone: +91 98717 13676",
+      "Phone: +91 99117 67272",
       "Email: info@solarprintprocess.com",
     ],
   },

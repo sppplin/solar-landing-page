@@ -127,7 +127,7 @@ export default function ThankYouPage() {
           {/* ── CTA Buttons ── */}
           <div className="flex flex-col items-stretch gap-3 mb-10 sm:flex-row sm:items-center sm:justify-center sm:flex-wrap">
             <a
-              href="https://wa.me/919871713676?text=Hi%2C+I+just+submitted+a+quote+request+on+your+website."
+              href="https://wa.me/919911767272?text=Hi%2C+I+just+submitted+a+quote+request+on+your+website."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl font-heading font-black uppercase tracking-wide text-sm text-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 whitespace-nowrap"
@@ -137,11 +137,11 @@ export default function ThankYouPage() {
               Chat on WhatsApp Now
             </a>
             <a
-              href="tel:+919871713676"
+              href="tel:+919911767272"
               className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl border border-border font-semibold text-sm text-foreground bg-white hover:bg-muted transition-all hover:-translate-y-0.5 whitespace-nowrap"
             >
               <HiOutlinePhone className="w-4 h-4 flex-shrink-0" />
-              +91 98717 13676
+              +91 99117 67272
             </a>
             <a
               href="https://solarprintprocess.com/projects"

@@ -35,7 +35,7 @@ export function CallToAction() {
             Fill Quote Form
           </button>
           <a
-            href="https://wa.me/919871713676?text=Hello%2C+I+need+a+custom+packaging+quote"
+            href="https://wa.me/919911767272?text=Hello%2C+I+need+a+custom+packaging+quote"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-heading text-base font-black uppercase tracking-wide text-foreground no-underline transition-transform hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-lg"
@@ -46,7 +46,7 @@ export function CallToAction() {
         </div>
 
         <p className="mt-4 text-xs text-white sm:mt-5 sm:text-sm">
-          C-10, Sector 85, Noida UP 201305 | +91 98717 13676 | business@spppl.in
+          C-10, Sector 85, Noida UP 201305 | +91 99117 67272 | business@spppl.in
         </p>
       </div>
 

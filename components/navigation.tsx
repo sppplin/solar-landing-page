@@ -63,14 +63,14 @@ export function Navigation() {
         {/* Desktop CTA Buttons */}
         <div className="hidden items-center gap-2 sm:flex sm:gap-2.5">
           <a
-            href="tel:+919871713676"
+            href="tel:+919911767272"
             className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-secondary px-3 py-2 text-sm font-bold text-white no-underline transition-all hover:brightness-110 sm:px-4 sm:py-2.5"
           >
             <Phone className="h-4 w-4" />
             <span className="hidden md:inline">Call Now</span>
           </a>
           <a
-            href="https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote"
+            href="https://wa.me/919911767272?text=Hello%2C+I+need+a+packaging+quote"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg bg-primary px-3 py-2 text-sm font-bold text-foreground no-underline transition-all hover:brightness-90 sm:px-4 sm:py-2.5"
@@ -96,14 +96,14 @@ export function Navigation() {
         <div className="border-t border-border bg-white px-4 py-4 sm:hidden">
           <div className="flex flex-col gap-3">
             <a
-              href="tel:+919871713676"
+              href="tel:+919911767272"
               className="flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-3 font-bold text-white no-underline"
             >
               <Phone className="h-5 w-5" />
-              Call +91 98717 13676
+              Call +91 99117 67272
             </a>
             <a
-              href="https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote"
+              href="https://wa.me/919911767272?text=Hello%2C+I+need+a+packaging+quote"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-bold text-foreground no-underline"
