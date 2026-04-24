@@ -117,6 +117,33 @@ Message: ${message || "-"}
 
     console.log("CRM STATUS:", espoRes.status)
     console.log("CRM RESPONSE:", crmText)
+    // Webhook to Make.com
+    try {
+      const webhookRes = await fetch(
+        "https://hook.us2.make.com/xokl81hj4tdtjp2ciiooyjohe6dacj9p",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            company,
+            email,
+            phone,
+            packagingType: finalPackagingType,
+            quantity,
+            message,
+            source: "Website Form",
+            submittedAt: new Date().toISOString(),
+          }),
+        }
+      )
+
+      console.log("Webhook Status:", webhookRes.status)
+    } catch (err) {
+      console.error("Webhook Failed:", err)
+    }
 
     return NextResponse.json(
       { success: true },
