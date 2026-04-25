@@ -1,6 +1,19 @@
 import { neon } from "@neondatabase/serverless"
 import { NextResponse } from "next/server"
 
+export async function GET() {
+  try {
+    const sql = neon(process.env.DATABASE_URL!)
+    const rows = await sql`
+      SELECT * FROM callback_requests
+      ORDER BY created_at DESC
+    `
+    return NextResponse.json(rows)
+  } catch {
+    return NextResponse.json([], { status: 500 })
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const dbUrl = process.env.DATABASE_URL

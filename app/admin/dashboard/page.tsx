@@ -2,6 +2,7 @@ import AdminLogoButton from "@/components/admin/AdminLogoButton"
 import AdminFooter from "@/components/admin/AdminFooter"
 import AdminCharts from "@/components/admin/AdminCharts"
 import LeadsTable from "@/components/admin/LeadsTable"
+import CallbackTable from "@/components/admin/CallbackTable"
 import LogoutButton from "@/components/admin/LogoutButton"
 import SiteSettings from "@/components/admin/SiteSettings"
 import { HiOutlineClipboardList, HiOutlineCalendar, HiOutlineClock, HiOutlineTrendingUp } from "react-icons/hi"
@@ -173,7 +174,12 @@ export default async function Page() {
           <div className="overflow-x-auto">
             <LeadsTable />
           </div>
-        </div>
+ </div>
+          {/* Callback Requests Table */}
+          <div className="mt-8">
+            <CallbackTable />
+          </div>
+       
 
       </main>
 
