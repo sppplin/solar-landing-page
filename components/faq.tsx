@@ -1,8 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { HiChevronDown, HiOutlinePhone } from "react-icons/hi"
+import { HiChevronDown } from "react-icons/hi"
+import { X } from "lucide-react"
 import { FaWhatsapp } from "react-icons/fa"
+import { MdPhoneCallback } from "react-icons/md"
+import { CallBackRequestForm } from "./CallBackRequestForm"
 
 const faqs = [
   // ── About Us ───────────────────────────────────────────────────────────────
@@ -145,16 +148,33 @@ const faqs = [
 const categories = Array.from(new Set(faqs.map((f) => f.category)))
 
 export function FAQ() {
-  const [activeCategory, setActiveCategory] = useState("All")
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [activeCategory, setActiveCategory] =
+    useState("All")
 
-  const displayed = activeCategory === "All"
+  const [openIndex, setOpenIndex] =
+    useState<number | null>(null)
+
+  // ✅ ADD THIS
+  const [
+    showCallBackModal,
+    setShowCallBackModal,
+  ] = useState(false)
+
+  const displayed =
+  activeCategory === "All"
     ? faqs
-    : faqs.filter((f) => f.category === activeCategory)
+    : faqs.filter(
+        (f) =>
+          f.category === activeCategory
+      )
 
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i)
+  const toggle = (i: number) =>
+    setOpenIndex(
+      openIndex === i ? null : i
+    )
 
   return (
+    <>
     <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-white px-4 sm:px-6">
       <div className="mx-auto max-w-4xl">
 
@@ -255,17 +275,44 @@ export function FAQ() {
               <FaWhatsapp className="w-4 h-4" />
               WhatsApp Us
             </a>
-            <a
-              href="tel:+919911767272"
+            <button
+              onClick={(e) => {
+                  e.stopPropagation()
+                  setShowCallBackModal(true)
+                }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-black uppercase tracking-wide text-sm border border-border text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
             >
-              <HiOutlinePhone className="w-4 h-4" />
-              Call Us
-            </a>
+              <MdPhoneCallback className="w-4 h-4" />
+              Call Back Request
+            </button>
           </div>
         </div>
 
       </div>
     </section>
+
+     {/* ✅ CALLBACK MODAL */}
+      {showCallBackModal && (
+        <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 p-4">
+          <div className="relative w-full max-w-md rounded-2xl bg-white shadow-2xl">
+            <button
+              onClick={() =>
+                setShowCallBackModal(false)
+              }
+              className="absolute right-3 top-3 z-10 rounded-full bg-black/10 p-1.5"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            <CallBackRequestForm
+              variant="dialog"
+              onSuccess={() =>
+                setShowCallBackModal(false)
+              }
+            />
+          </div>
+        </div>
+      )}
+    </>
   )
 }

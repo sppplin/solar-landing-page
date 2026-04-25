@@ -14,6 +14,8 @@ import {
   X,
 } from "lucide-react"
 import { QuoteForm } from "./quote-form"
+import { CallBackRequestForm } from "./CallBackRequestForm"
+import { MdPhoneCallback } from "react-icons/md"
 
 interface ProductCardProps {
   images: string[]
@@ -22,6 +24,7 @@ interface ProductCardProps {
   reviews: string
   specs: { label: string; value: string }[]
   onQuoteClick?: () => void
+  onCallbackClick?: () => void
 }
 
 const products: ProductCardProps[] = [
@@ -106,6 +109,7 @@ function ProductCard({
   reviews,
   specs,
   onQuoteClick,
+  onCallbackClick,
 }: ProductCardProps) {
   const [active, setActive] = useState(0)
 
@@ -214,14 +218,16 @@ function ProductCard({
             <span className="text-muted-foreground">({reviews})</span>
           </div>
         </div>
-        <a
-          href="tel:+919911767272"
-          onClick={(e) => e.stopPropagation()}
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onCallbackClick?.()
+          }}
           className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-primary text-sm font-bold text-primary transition hover:border-black hover:bg-black hover:text-white"
         >
-          <Phone className="h-4 w-4" />
-          Call Factory
-        </a>
+          <MdPhoneCallback className="h-4 w-4" />
+          Call Back Request
+        </button>
       </div>
     </div>
   )
@@ -271,6 +277,53 @@ function QuoteFormModal({ onClose }: { onClose: () => void }) {
   )
 }
 
+// ✅ Standalone CallBackRequestForm Modal
+function CallBackModal({ onClose }: { onClose: () => void }) {
+  const handleBackdropClick = (
+    e: React.MouseEvent<HTMLDivElement>
+  ) => {
+    if (e.target === e.currentTarget) onClose()
+  }
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+
+    document.addEventListener("keydown", onKey)
+
+    return () =>
+      document.removeEventListener("keydown", onKey)
+  }, [onClose])
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [])
+
+  return (
+    <div
+      className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+      onClick={handleBackdropClick}
+    >
+      <div className="relative w-full max-w-md rounded-2xl bg-white shadow-2xl">
+        <button
+          onClick={onClose}
+          className="absolute right-3 top-3 z-10 rounded-full bg-black/10 p-1.5"
+        >
+          <X className="h-4 w-4" />
+        </button>
+
+        <div className="p-2">
+          <CallBackRequestForm />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function RigidBoxProducts() {
   const [open, setOpen] = useState(false)
   const [cardIndex, setCardIndex] = useState(0)
@@ -278,6 +331,8 @@ export function RigidBoxProducts() {
 
   // ✅ Quote modal state
   const [showQuoteModal, setShowQuoteModal] = useState(false)
+  // Callback modal state
+  const [showCallBackModal, setShowCallBackModal] = useState(false)
 
   const openPreview = (index: number) => {
     setCardIndex(index)
@@ -350,6 +405,7 @@ export function RigidBoxProducts() {
                 <ProductCard
                   {...item}
                   onQuoteClick={() => setShowQuoteModal(true)}
+                  onCallbackClick={() => setShowCallBackModal(true)}
                 />
               </div>
             ))}
@@ -457,21 +513,31 @@ export function RigidBoxProducts() {
           {/* MOBILE CTA */}
           <div className="fixed bottom-0 left-0 right-0 z-50 border-t bg-white p-3 lg:hidden">
             <div className="grid grid-cols-2 gap-3">
-              {/* ✅ Opens QuoteForm modal */}
+              {/* Quote Button */}
               <button
                 onClick={() => setShowQuoteModal(true)}
-                className="h-12 rounded-xl bg-primary text-sm font-bold text-black transition hover:bg-accent hover:text-white"
+                className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-3 text-sm font-bold text-black transition hover:bg-accent hover:text-white"
               >
-                Get Instant Quote
+                <Quote className="h-4 w-4 shrink-0" />
+                <span className="leading-none">
+                  Get Instant Quote
+                </span>
               </button>
 
-              <a
-                href="tel:+919911767272"
-                className="flex h-12 items-center justify-center rounded-xl border border-primary text-sm font-bold text-primary transition hover:bg-black hover:text-white hover:border-black"
+            {/* Callback Button */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setShowCallBackModal(true)
+                }}
+                className="flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-3 text-sm font-bold text-black transition hover:bg-black hover:text-white"
               >
-                <Phone className="mr-2 h-4 w-4" />
-                Call Factory
-              </a>
+                <MdPhoneCallback className="h-4 w-4 shrink-0" />
+
+                <span className="leading-none">
+                  Call Back Request
+                </span>
+              </button>
             </div>
           </div>
 
@@ -485,13 +551,16 @@ export function RigidBoxProducts() {
               Get Instant Quote
             </button>
 
-            <a
-              href="tel:+919911767272"
-              className="mt-3 flex h-12 w-full items-center justify-center rounded-xl border border-primary text-sm font-bold text-primary transition hover:bg-black hover:text-white hover:border-black"
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowCallBackModal(true)
+              }}
+              className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-primary text-sm font-bold text-primary transition hover:border-black hover:bg-black hover:text-white"
             >
-              <Phone className="mr-2 h-4 w-4" />
-              Call Factory
-            </a>
+              <MdPhoneCallback className="h-4 w-4" />
+              Call Back Request
+            </button>
           </div>
         </div>
       )}
@@ -499,6 +568,10 @@ export function RigidBoxProducts() {
       {/* ✅ QuoteForm Modal — renders on top of everything including preview */}
       {showQuoteModal && (
         <QuoteFormModal onClose={() => setShowQuoteModal(false)} />
+      )}
+      {/* CallBackRequestForm Modal */}
+      {showCallBackModal && (
+        <CallBackModal onClose={() => setShowCallBackModal(false)} />
       )}
     </>
   )

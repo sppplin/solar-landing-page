@@ -157,7 +157,7 @@ export default function ThankYouPage() {
           {/* ── Info cards ── */}
           <div className="grid grid-cols-3 gap-3 mb-10">
             {[
-              { value: "2 hrs", label: "Response time" },
+              { value: "30 min", label: "Response time" },
               { value: "500+", label: "B2B Clients" },
               { value: "1975", label: "Est. year" },
             ].map(({ value, label }) => (
