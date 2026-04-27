@@ -10,7 +10,7 @@ import Image from "next/image"
 import { CallBackRequestForm } from "./CallBackRequestForm"
 
 // ── WA link helpers ───────────────────────────────────────────────────────────
-const WA_NUMBER       = "919911767272"
+const WA_NUMBER       = "918448395560"
 const DEFAULT_MSG     = "Hello, I need a packaging quote"
 const DEFAULT_WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(DEFAULT_MSG)}`
 

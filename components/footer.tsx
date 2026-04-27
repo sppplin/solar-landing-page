@@ -111,7 +111,7 @@ export function Footer() {
               business@spppl.in
             </a>
             <a
-              href="https://wa.me/919911767272"
+              href="https://wa.me/918448395560"
               target="_blank"
               rel="noopener noreferrer"
               className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px]"

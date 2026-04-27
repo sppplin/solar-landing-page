@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa"
 import Image from "next/image"
 import { X } from "lucide-react"
 
-const WA_NUMBER = "919911767272"
+const WA_NUMBER = "918448395560"
 const DEFAULT_MSG = "Hello, I need a packaging quote"
 
 // ── Slug → human-readable product label ──────────────────────────────────────

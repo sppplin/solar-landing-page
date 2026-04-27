@@ -146,7 +146,7 @@ export default function ContactPage() {
 
               {/* WhatsApp CTA */}
               <a
-                href="https://wa.me/919911767272?text=Hi%2C+I+have+a+packaging+enquiry."
+                href="https://wa.me/918448395560?text=Hi%2C+I+have+a+packaging+enquiry."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl font-heading font-black uppercase tracking-wide text-sm text-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30"

@@ -127,7 +127,7 @@ export default function ThankYouPage() {
           {/* ── CTA Buttons ── */}
           <div className="flex flex-col items-stretch gap-3 mb-10 sm:flex-row sm:items-center sm:justify-center sm:flex-wrap">
             <a
-              href="https://wa.me/919911767272?text=Hi%2C+I+just+submitted+a+quote+request+on+your+website."
+              href="https://wa.me/918448395560?text=Hi%2C+I+just+submitted+a+quote+request+on+your+website."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl font-heading font-black uppercase tracking-wide text-sm text-foreground transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 whitespace-nowrap"
