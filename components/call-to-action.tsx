@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { usePathname } from "next/navigation"
 import { HiOutlineClipboardList } from "react-icons/hi"
 import { FaWhatsapp } from "react-icons/fa"
 import {
@@ -12,8 +13,38 @@ import {
 } from "@/components/ui/dialog"
 import { QuoteForm } from "./quote-form"
 
+// ── WA link helpers ───────────────────────────────────────────────────────────
+const WA_NUMBER       = "919911767272"
+const DEFAULT_MSG     = "Hello, I need a custom packaging quote"
+const DEFAULT_WA_LINK = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(DEFAULT_MSG)}`
+
+function getProductFromSlug(pathname: string): string | null {
+  const slug = pathname.split("/").filter(Boolean).pop()
+  if (!slug) return null
+  const cleaned = slug
+    .replace(/-(manufacturer|supplier|exporter|wholesaler|maker|printing|print|services?|company|india)$/gi, "")
+    .replace(/-+$/, "")
+    .trim()
+  if (!cleaned) return null
+  return cleaned.replace(/-/g, " ")
+}
+
+function buildWaLink(pathname: string): string {
+  const product = getProductFromSlug(pathname)
+  const msg = product ? `Hello, I need a ${product} packaging quote` : DEFAULT_MSG
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export function CallToAction() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const pathname = usePathname()
+
+  // Hydration-safe: start with default (matches SSR), update after mount
+  const [waLink, setWaLink] = useState(DEFAULT_WA_LINK)
+  useEffect(() => {
+    setWaLink(buildWaLink(pathname))
+  }, [pathname])
 
   return (
     <section className="bg-gradient-to-br from-secondary to-[#2a2a2a] py-10 text-center sm:py-16">
@@ -35,7 +66,7 @@ export function CallToAction() {
             Fill Quote Form
           </button>
           <a
-            href="https://wa.me/919911767272?text=Hello%2C+I+need+a+custom+packaging+quote"
+            href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-heading text-base font-black uppercase tracking-wide text-foreground no-underline transition-transform hover:-translate-y-0.5 sm:px-8 sm:py-4 sm:text-lg"

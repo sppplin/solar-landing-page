@@ -1,40 +1,75 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { usePathname } from "next/navigation"
 import { FaWhatsapp } from "react-icons/fa"
 import Image from "next/image"
 import { X } from "lucide-react"
 
-const WA_LINK = "https://wa.me/919911767272?text=Hello%2C+I+need+a+packaging+quote"
+const WA_NUMBER = "919911767272"
+const DEFAULT_MSG = "Hello, I need a packaging quote"
 
+// ── Slug → human-readable product label ──────────────────────────────────────
+// Pattern: anything before "-manufacturer", "-supplier", "-boxes", "-box" etc.
+// e.g. "perfume-box-manufacturer" → "perfume box"
+//      "rigid-box-manufacturer"   → "rigid box"
+//      "mono-carton-boxes"        → "mono carton"
+//      "/contact" or "/"          → undefined (use default)
+
+function getProductFromSlug(pathname: string): string | null {
+  // Take the last path segment, strip leading slash
+  const slug = pathname.split("/").filter(Boolean).pop()
+  if (!slug) return null
+
+  // Remove common suffixes
+  const cleaned = slug
+    .replace(/-(manufacturer|supplier|exporter|wholesaler|maker|printing|print|services?|company|india)$/gi, "")
+    .replace(/-+$/, "")
+    .trim()
+
+  if (!cleaned) return null
+
+  // Convert hyphens to spaces
+  return cleaned.replace(/-/g, " ")
+}
+
+function buildWaLink(pathname: string): string {
+  const product = getProductFromSlug(pathname)
+  const msg = product
+    ? `Hello, I need a ${product} packaging quote`
+    : DEFAULT_MSG
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`
+}
+
+// ── Component ─────────────────────────────────────────────────────────────────
 export function WhatsAppButton() {
-  const [isOpen, setIsOpen] = useState(false)
+  const pathname             = usePathname()
+  const [isOpen, setIsOpen]  = useState(false)
+  const waLink               = buildWaLink(pathname)
+
   const audioCtxRef      = useRef<AudioContext | null>(null)
   const reopenTimerRef   = useRef<ReturnType<typeof setTimeout> | null>(null)
   const interactedRef    = useRef(false)
   const openScheduledRef = useRef(false)
-  const userTypingRef    = useRef(false)  // true when user is filling a form
+  const userTypingRef    = useRef(false)
 
-  // ── Detect form focus / blur ───────────────────────────────────────────────
+  // ── Detect form focus / blur ─────────────────────────────────────────────
   useEffect(() => {
     const FORM_TAGS = ["INPUT", "TEXTAREA", "SELECT"]
 
     const onFocusIn = (e: FocusEvent) => {
       if (FORM_TAGS.includes((e.target as HTMLElement)?.tagName)) {
         userTypingRef.current = true
-        // Cancel any pending auto-open timer
         if (reopenTimerRef.current) {
           clearTimeout(reopenTimerRef.current)
           reopenTimerRef.current = null
         }
-        // Also close if currently open
         setIsOpen(false)
       }
     }
 
     const onFocusOut = (e: FocusEvent) => {
       if (FORM_TAGS.includes((e.target as HTMLElement)?.tagName)) {
-        // Small delay — user might be tabbing between fields
         setTimeout(() => {
           const active = document.activeElement
           if (!active || !FORM_TAGS.includes(active.tagName)) {
@@ -52,14 +87,14 @@ export function WhatsAppButton() {
     }
   }, [])
 
-  // ── Sound ──────────────────────────────────────────────────────────────────
+  // ── Sound ────────────────────────────────────────────────────────────────
   const playSound = () => {
     try {
       if (!audioCtxRef.current) audioCtxRef.current = new AudioContext()
       const ctx = audioCtxRef.current
       if (ctx.state === "suspended") ctx.resume()
       const playTone = (freq: number, start: number, dur: number, gain: number) => {
-        const osc  = ctx.createOscillator()
+        const osc   = ctx.createOscillator()
         const gNode = ctx.createGain()
         osc.connect(gNode); gNode.connect(ctx.destination)
         osc.type = "sine"
@@ -76,9 +111,8 @@ export function WhatsAppButton() {
     } catch { /* silent */ }
   }
 
-  // ── Open / close ───────────────────────────────────────────────────────────
+  // ── Open / close ─────────────────────────────────────────────────────────
   const openChat = () => {
-    // Don't open if user is filling a form
     if (userTypingRef.current) return
     setIsOpen(true)
     playSound()
@@ -87,13 +121,12 @@ export function WhatsAppButton() {
   const closeChat = () => {
     setIsOpen(false)
     if (reopenTimerRef.current) clearTimeout(reopenTimerRef.current)
-    // Reopen after 5s — but only if user not in a form
     reopenTimerRef.current = setTimeout(() => {
       if (!userTypingRef.current) openChat()
     }, 180000)
   }
 
-  // ── First interaction trigger ──────────────────────────────────────────────
+  // ── First interaction / scroll trigger ───────────────────────────────────
   useEffect(() => {
     const unlockAndSchedule = () => {
       try {
@@ -143,6 +176,7 @@ export function WhatsAppButton() {
       window.removeEventListener("keydown",     unlockAndSchedule)
       window.removeEventListener("scroll",      onScroll)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleButtonClick = () => {
@@ -196,10 +230,10 @@ export function WhatsAppButton() {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* CTA — waLink updates per page automatically */}
         <div className="bg-[#ECE5DD] px-4 pb-3">
           <a
-            href={WA_LINK}
+            href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 w-full rounded-full py-2.5 text-[13px] font-bold text-white transition-opacity hover:opacity-90"

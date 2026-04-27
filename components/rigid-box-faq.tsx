@@ -177,7 +177,7 @@ export function RigidBoxFAQ() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
-              href="https://wa.me/919911767272?text=Hi%2C+I+have+a+question+about+your+packaging."
+              href="https://wa.me/919911767272?text=Hi%2C+I+have+a+question+about+your+rigid+box+packaging."
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-heading font-black uppercase tracking-wide text-sm text-black transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30"
               style={{ background: "linear-gradient(135deg, #F6B913, #ffe55a)" }}
