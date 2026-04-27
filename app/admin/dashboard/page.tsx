@@ -8,6 +8,7 @@ import SiteSettings from "@/components/admin/SiteSettings"
 import { HiOutlineClipboardList, HiOutlineCalendar, HiOutlineClock, HiOutlineTrendingUp } from "react-icons/hi"
 import { HiSignal } from "react-icons/hi2"
 import { neon } from "@neondatabase/serverless"
+import { MdPhoneCallback } from "react-icons/md"
 
 interface Lead {
   id: number
@@ -174,12 +175,26 @@ export default async function Page() {
           <div className="overflow-x-auto">
             <LeadsTable />
           </div>
- </div>
-          {/* Callback Requests Table */}
-          <div className="mt-8">
+        </div>   
+
+        {/* Callback Table */}
+       <div className="relative bg-card border border-border rounded-2xl overflow-hidden shadow-sm mt-8 sm:mt-10">
+          <div className="absolute top-0 inset-x-0 h-[3px] z-10"
+            style={{ background: "linear-gradient(90deg, #F6B913, #ffe55a 50%, #F6B913)" }} />
+          <div className="flex items-center justify-between flex-wrap gap-3 px-5 sm:px-6 py-4 bg-muted border-b border-border">
+            <div className="flex items-center gap-2">
+              <MdPhoneCallback className="w-5 h-5 text-primary" />
+              <span className="font-heading text-xl font-bold uppercase tracking-wide text-foreground">Call Back Request</span>
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase text-accent bg-primary/10 border border-primary/35 px-3 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-blink" />
+              Live Data
+            </span>
+          </div>
+          <div className="overflow-x-auto">
             <CallbackTable />
           </div>
-       
+        </div>   
 
       </main>
 
