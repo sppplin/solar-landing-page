@@ -29,83 +29,76 @@ interface ProductCardProps {
 
 const products: ProductCardProps[] = [
   {
-    images: ["/products/perfume-box/almudaires.jpeg"],
-    title: "Luxury White Oud Perfume Gift Box",
+    images: ["/products/carry-bag/designer-printed-luxury-carry-bag-brand-packaging.jpg"],
+    title: "Designer Printed Luxury Carry Bag",
     rating: "4.9",
-    reviews: "41",
+    reviews: "52",
     specs: [
-  { label: "Box Material", value: "MDF Wood + Velvet Lining" },
-  { label: "Box Style", value: "Hinged Wooden Presentation Box" },
-  { label: "Use", value: "Perfume Bottle + Oud Chips Storage" },
-  { label: "Surface Finishing", value: "Matte White Paint + Gold Fittings" },
-  ],
-  },
-  {
-    images: ["/products/perfume-box/audacity-solos.png"],
-    title: "Premium Black Perfume Packaging Box",
-    rating: "4.8",
-    reviews: "57",
-    specs: [
-    { label: "Box Material", value: "Rigid Board + Art Paper" },
-    { label: "Box Style", value: "Two Piece Perfume Box" },
-    { label: "Use", value: "100ml Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Black + UV Print" },
-  ],
-  },
-  {
-    images: [
-      "/products/perfume-box/car-burner-I.jpg",
-      "/products/perfume-box/car-burner-II.jpg",
+      { label: "Material", value: "Art Paper + Rigid Base" },
+      { label: "Handle", value: "Premium Rope Handle" },
+      { label: "Use", value: "Luxury Retail & Branding" },
+      { label: "Finishing", value: "Matte Lamination + Foil" },
     ],
-    title: "Luxury Red Car Perfume Burner Box",
+  },
+  {
+    images: ["/products/carry-bag/luxury-gradient-paper-carry-bag-rope-handle.jpg"],
+    title: "Gradient Luxury Paper Carry Bag",
+    rating: "4.8",
+    reviews: "46",
+    specs: [
+      { label: "Material", value: "High GSM Paper" },
+      { label: "Handle", value: "Twisted Rope Handle" },
+      { label: "Use", value: "Retail & Gift Packaging" },
+      { label: "Finishing", value: "Gradient Print + Matte" },
+    ],
+  },
+  {
+    images: ["/products/carry-bag/luxury-white-wedding-carry-bag-custom-print.jpg"],
+    title: "Luxury White Wedding Carry Bag",
+    rating: "4.9",
+    reviews: "61",
+    specs: [
+      { label: "Material", value: "Premium Ivory Board" },
+      { label: "Handle", value: "Soft Cotton Rope" },
+      { label: "Use", value: "Wedding & Invitation Kits" },
+      { label: "Finishing", value: "Emboss + Gold Foil" },
+    ],
+  },
+  {
+    images: ["/products/carry-bag/minimal-luxury-paper-carry-bag-rope-handle.jpg"],
+    title: "Minimal Luxury Paper Carry Bag",
     rating: "4.7",
-    reviews: "36",
+    reviews: "38",
     specs: [
-    { label: "Box Material", value: "Rigid Board + Art Paper" },
-    { label: "Box Style", value: "Lift Off Lid Rigid Box" },
-    { label: "Use", value: "Car Burner Gift Packaging" },
-    { label: "Surface Finishing", value: "Matte Red + Gold Foil" },
-  ],
-  },
-  {
-    images: ["/products/perfume-box/cassie.png"],
-    title: "Luxury Black Drawer Perfume Box",
-    rating: "4.8",
-    reviews: "33",
-    specs: [
-    { label: "Box Material", value: "Rigid Board + Velvet Insert" },
-    { label: "Box Style", value: "Drawer Slide Perfume Box" },
-    { label: "Use", value: "Luxury Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Black + Gold Foil" },
-  ],
-  },
-  {
-    images: [
-      "/products/perfume-box/forest-essentials-I.png",
-      "/products/perfume-box/forest-essentials-II.png",
-      "/products/perfume-box/forest-essentials-III.png",
+      { label: "Material", value: "Kraft + Art Paper" },
+      { label: "Handle", value: "Cotton Rope Handle" },
+      { label: "Use", value: "Boutique Packaging" },
+      { label: "Finishing", value: "Matte Minimal Print" },
     ],
-    title: "Premium Roll On Perfume Packaging Box",
-    rating: "4.9",
-    reviews: "62",
-    specs: [
-    { label: "Box Material", value: "Duplex Board + Printed Paper" },
-    { label: "Box Style", value: "Straight Tuck End Box" },
-    { label: "Use", value: "10ml Perfume Roll On Packaging" },
-    { label: "Surface Finishing", value: "Gloss Lamination + Gold Print" },
-  ],
   },
   {
-    images: ["/products/perfume-box/passopm-men.jpg"],
-    title: "Men's Blue Perfume Packaging Box",
-    rating: "4.8",
-    reviews: "48",
+    images: ["/products/carry-bag/premium-gift-carry-bag-with-rigid-box-packaging.jpg"],
+    title: "Premium Gift Carry Bag with Box",
+    rating: "4.9",
+    reviews: "67",
     specs: [
-    { label: "Box Material", value: "Duplex Board + Printed Paper" },
-    { label: "Box Style", value: "Straight Tuck End Box" },
-    { label: "Use", value: "100ml Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Blue + UV Print" },
-  ],
+      { label: "Material", value: "Rigid Board + Printed Paper" },
+      { label: "Handle", value: "Premium Rope Handle" },
+      { label: "Use", value: "Gift Sets & Hampers" },
+      { label: "Finishing", value: "Soft Touch + Foil" },
+    ],
+  },
+  {
+    images: ["/products/carry-bag/printed-floral-paper-carry-bag-retail-packaging.jpg"],
+    title: "Printed Floral Retail Carry Bag",
+    rating: "4.8",
+    reviews: "49",
+    specs: [
+      { label: "Material", value: "High GSM Art Paper" },
+      { label: "Handle", value: "Twisted Rope" },
+      { label: "Use", value: "Cosmetics & Retail" },
+      { label: "Finishing", value: "Gloss + Multicolor Print" },
+    ],
   },
 ]
 
@@ -331,7 +324,7 @@ function CallBackModal({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function PerfumeBoxProducts() {
+export function CarryBagProducts() {
   const [open, setOpen] = useState(false)
   const [cardIndex, setCardIndex] = useState(0)
   const [imageIndex, setImageIndex] = useState(0)
@@ -391,12 +384,12 @@ export function PerfumeBoxProducts() {
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6">
           <div className="mb-6 sm:mb-10">
             <h2 className="font-heading text-2xl font-black uppercase leading-tight tracking-tight text-foreground sm:text-4xl">
-              Our <span className="text-primary">Perfume Box</span> Products
+              Our <span className="text-primary">Carry Bag</span> Products
             </h2>
 
             <p className="mt-2 max-w-[580px] text-sm text-muted-foreground sm:text-base">
               Everything manufactured at our Noida plant. No middlemen. Direct
-              factory pricing on all Perfume box orders with premium finishing and
+              factory pricing on all carry bag orders with premium finishing and
               custom sizes.
             </p>
           </div>

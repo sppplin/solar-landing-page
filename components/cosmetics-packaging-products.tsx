@@ -29,83 +29,100 @@ interface ProductCardProps {
 
 const products: ProductCardProps[] = [
   {
-    images: ["/products/perfume-box/almudaires.jpeg"],
-    title: "Luxury White Oud Perfume Gift Box",
+    images: [
+      "/products/cosmetics-packaging/mamaearth-gift-of-goodness-magnetic-rigid-box.jpg",
+    ],
+    title: "Luxury Magnetic Cosmetics Gift Box",
     rating: "4.9",
-    reviews: "41",
+    reviews: "84",
     specs: [
-  { label: "Box Material", value: "MDF Wood + Velvet Lining" },
-  { label: "Box Style", value: "Hinged Wooden Presentation Box" },
-  { label: "Use", value: "Perfume Bottle + Oud Chips Storage" },
-  { label: "Surface Finishing", value: "Matte White Paint + Gold Fittings" },
-  ],
+      { label: "Box Material", value: "Rigid Board + Premium Art Paper" },
+      { label: "Box Style", value: "Magnetic Closure Rigid Box" },
+      { label: "Use", value: "Skincare & Cosmetic Gift Packaging" },
+      { label: "Surface Finishing", value: "Soft Touch Matte + UV Print" },
+    ],
   },
-  {
-    images: ["/products/perfume-box/audacity-solos.png"],
-    title: "Premium Black Perfume Packaging Box",
-    rating: "4.8",
-    reviews: "57",
-    specs: [
-    { label: "Box Material", value: "Rigid Board + Art Paper" },
-    { label: "Box Style", value: "Two Piece Perfume Box" },
-    { label: "Use", value: "100ml Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Black + UV Print" },
-  ],
-  },
+
   {
     images: [
-      "/products/perfume-box/car-burner-I.jpg",
-      "/products/perfume-box/car-burner-II.jpg",
+      "/products/cosmetics-packaging/organic-kitchen-skincare-carton-packaging.webp",
+      "/products/cosmetics-packaging/organic-kitchen-custom-product-boxes.webp",
+      "/products/cosmetics-packaging/organic-kitchen-flat-carton-dieline-layout.webp",
     ],
-    title: "Luxury Red Car Perfume Burner Box",
+    title: "Custom Printed Cosmetic Carton Boxes",
+    rating: "4.8",
+    reviews: "67",
+    specs: [
+      { label: "Box Material", value: "Duplex Board + Printed Sheet" },
+      { label: "Box Style", value: "Straight Tuck End Carton Box" },
+      { label: "Use", value: "Serum, Cream & Skincare Packaging" },
+      { label: "Surface Finishing", value: "Matte Lamination + Foil Print" },
+    ],
+  },
+
+  {
+    images: [
+      "/products/cosmetics-packaging/forest-essentials-luxury-gift-box-packaging.webp",
+      "/products/cosmetics-packaging/forest-essentials-premium-cutout-rigid-box.webp",
+    ],
+    title: "Premium Luxury Ayurveda Packaging Box",
+    rating: "4.9",
+    reviews: "72",
+    specs: [
+      { label: "Box Material", value: "Rigid Board + EVA Insert" },
+      { label: "Box Style", value: "Premium Presentation Gift Box" },
+      { label: "Use", value: "Luxury Skincare & Wellness Products" },
+      { label: "Surface Finishing", value: "Gold Foiling + Spot UV" },
+    ],
+  },
+
+  {
+    images: [
+      "/products/cosmetics-packaging/biotique-luxury-magnetic-gift-box.webp",
+      "/products/cosmetics-packaging/biotique-foldable-rigid-packaging-box.webp",
+      "/products/cosmetics-packaging/biotique-premium-empty-rigid-box.webp",
+    ],
+    title: "Foldable Magnetic Cosmetics Packaging Box",
+    rating: "4.8",
+    reviews: "58",
+    specs: [
+      { label: "Box Material", value: "Rigid Board + Fabric Ribbon" },
+      { label: "Box Style", value: "Foldable Magnetic Gift Box" },
+      { label: "Use", value: "Beauty & Cosmetic Product Packaging" },
+      { label: "Surface Finishing", value: "Matte Finish + Gold Foil" },
+    ],
+  },
+
+  {
+    images: [
+      "/products/cosmetics-packaging/saante-selfcare-cosmetic-packaging-box.webp",
+      "/products/cosmetics-packaging/saante-selfcare-skincare-carton-boxes.webp",
+    ],
+    title: "Luxury Skincare Product Packaging Boxes",
     rating: "4.7",
-    reviews: "36",
+    reviews: "49",
     specs: [
-    { label: "Box Material", value: "Rigid Board + Art Paper" },
-    { label: "Box Style", value: "Lift Off Lid Rigid Box" },
-    { label: "Use", value: "Car Burner Gift Packaging" },
-    { label: "Surface Finishing", value: "Matte Red + Gold Foil" },
-  ],
+      { label: "Box Material", value: "Premium Duplex Board" },
+      { label: "Box Style", value: "Custom Cosmetic Folding Cartons" },
+      { label: "Use", value: "Face Serum & Beauty Product Packaging" },
+      { label: "Surface Finishing", value: "Rose Gold Foiling + Matte" },
+    ],
   },
-  {
-    images: ["/products/perfume-box/cassie.png"],
-    title: "Luxury Black Drawer Perfume Box",
-    rating: "4.8",
-    reviews: "33",
-    specs: [
-    { label: "Box Material", value: "Rigid Board + Velvet Insert" },
-    { label: "Box Style", value: "Drawer Slide Perfume Box" },
-    { label: "Use", value: "Luxury Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Black + Gold Foil" },
-  ],
-  },
+
   {
     images: [
-      "/products/perfume-box/forest-essentials-I.png",
-      "/products/perfume-box/forest-essentials-II.png",
-      "/products/perfume-box/forest-essentials-III.png",
+      "/products/cosmetics-packaging/black-luxury-perfume-packaging-box.webp",
+      "/products/cosmetics-packaging/premium-black-rigid-box-insert-packaging.webp",
     ],
-    title: "Premium Roll On Perfume Packaging Box",
+    title: "Premium Perfume & CBD Product Packaging",
     rating: "4.9",
-    reviews: "62",
+    reviews: "91",
     specs: [
-    { label: "Box Material", value: "Duplex Board + Printed Paper" },
-    { label: "Box Style", value: "Straight Tuck End Box" },
-    { label: "Use", value: "10ml Perfume Roll On Packaging" },
-    { label: "Surface Finishing", value: "Gloss Lamination + Gold Print" },
-  ],
-  },
-  {
-    images: ["/products/perfume-box/passopm-men.jpg"],
-    title: "Men's Blue Perfume Packaging Box",
-    rating: "4.8",
-    reviews: "48",
-    specs: [
-    { label: "Box Material", value: "Duplex Board + Printed Paper" },
-    { label: "Box Style", value: "Straight Tuck End Box" },
-    { label: "Use", value: "100ml Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Blue + UV Print" },
-  ],
+      { label: "Box Material", value: "Rigid Board + Foam Insert" },
+      { label: "Box Style", value: "Luxury Drawer & Rigid Boxes" },
+      { label: "Use", value: "Perfume, CBD & Cosmetic Packaging" },
+      { label: "Surface Finishing", value: "Soft Touch Matte + Embossing" },
+    ],
   },
 ]
 
@@ -331,7 +348,7 @@ function CallBackModal({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function PerfumeBoxProducts() {
+export function CosmeticsPackagingProducts() {
   const [open, setOpen] = useState(false)
   const [cardIndex, setCardIndex] = useState(0)
   const [imageIndex, setImageIndex] = useState(0)
@@ -391,12 +408,12 @@ export function PerfumeBoxProducts() {
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6">
           <div className="mb-6 sm:mb-10">
             <h2 className="font-heading text-2xl font-black uppercase leading-tight tracking-tight text-foreground sm:text-4xl">
-              Our <span className="text-primary">Perfume Box</span> Products
+              Our <span className="text-primary">Cosmetics Packaging</span> Products
             </h2>
 
             <p className="mt-2 max-w-[580px] text-sm text-muted-foreground sm:text-base">
               Everything manufactured at our Noida plant. No middlemen. Direct
-              factory pricing on all Perfume box orders with premium finishing and
+              factory pricing on all Cosmetics Packaging orders with premium finishing and
               custom sizes.
             </p>
           </div>

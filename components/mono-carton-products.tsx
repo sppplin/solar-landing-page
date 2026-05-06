@@ -331,7 +331,7 @@ function CallBackModal({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function PerfumeBoxProducts() {
+export function MonoCartonProducts() {
   const [open, setOpen] = useState(false)
   const [cardIndex, setCardIndex] = useState(0)
   const [imageIndex, setImageIndex] = useState(0)
@@ -391,12 +391,12 @@ export function PerfumeBoxProducts() {
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6">
           <div className="mb-6 sm:mb-10">
             <h2 className="font-heading text-2xl font-black uppercase leading-tight tracking-tight text-foreground sm:text-4xl">
-              Our <span className="text-primary">Perfume Box</span> Products
+              Our <span className="text-primary">Mono Carton</span> Products
             </h2>
 
             <p className="mt-2 max-w-[580px] text-sm text-muted-foreground sm:text-base">
               Everything manufactured at our Noida plant. No middlemen. Direct
-              factory pricing on all Perfume box orders with premium finishing and
+              factory pricing on all Mono Carton orders with premium finishing and
               custom sizes.
             </p>
           </div>

@@ -6,12 +6,12 @@ import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 
 const productLinks = [
-  { label: "Mono Cartons",        hash: "#products" },
-  { label: "Rigid Boxes",         hash: "#products" },
-  { label: "Cosmetic Packaging",  hash: "#products" },
-  { label: "Food Packaging",      hash: "#products" },
-  { label: "Ecommerce Packaging", hash: "#products" },
-  { label: "Commercial Printing", hash: "#products" },
+  { label: "Cosmetics Packaging Manufacturer", href: "/cosmetics-packaging-manufacturer" },
+  { label: "Chocolates Boxes Manufacturer", href: "/chocolate-box-manufacturer" },
+  { label: "Perfume Boxes Manufacturer", href: "/perfume-box-manufacturer" },
+  { label: "Mono Carton Manufacturer", href: "/mono-carton-manufacturer" },
+  { label: "Rigid Boxes Manufacturer", href: "/rigid-box-manufacturer" },
+  { label: "Carry Bags Manufacturer", href: "/carry-bag-manufacturer" },
 ]
 
 const legalLinks = [
@@ -40,17 +40,18 @@ export function Footer() {
     else router.push("/")
   }
 
-  // Navigate to a hash section — if already on homepage scroll directly,
-  // otherwise go to homepage first and let the hash do its job
-  const handleHashNav = (e: React.MouseEvent, hash: string) => {
-    e.preventDefault()
-    if (pathname === "/") {
-      const el = document.querySelector(hash)
-      if (el) el.scrollIntoView({ behavior: "smooth" })
-    } else {
-      router.push("/" + hash)
-    }
+  const handleFAQClick = (e: React.MouseEvent) => {
+  e.preventDefault()
+
+  const el = document.querySelector("#faq")
+
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" })
+  } else {
+    window.location.href = "/#faq"
   }
+}
+
 
   return (
     <footer className="bg-secondary pt-8 sm:pt-10">
@@ -78,16 +79,15 @@ export function Footer() {
           <h4 className="mb-2 font-heading text-xs font-bold uppercase tracking-wider text-primary sm:mb-3 sm:text-sm">
             Our Products
           </h4>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 sm:grid-cols-1">
-            {productLinks.map(({ label, hash }) => (
-              <a
+          <div className="space-y-0.5">
+            {productLinks.map(({ label, href }) => (
+              <Link
                 key={label}
-                href={"/" + hash}
-                onClick={(e) => handleHashNav(e, hash)}
-                className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px] cursor-pointer"
+                href={href}
+                className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px]"
               >
                 {label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -143,8 +143,8 @@ export function Footer() {
             {/* FAQ link — below Contact Us in Legal column */}
             <a
               href="/#faq"
-              onClick={(e) => handleHashNav(e, "#faq")}
-              className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px] cursor-pointer"
+              onClick={handleFAQClick}
+              className="block text-xs leading-loose text-muted-foreground no-underline transition-colors hover:text-primary sm:text-[13.5px]"
             >
               FAQs
             </a>

@@ -29,83 +29,81 @@ interface ProductCardProps {
 
 const products: ProductCardProps[] = [
   {
-    images: ["/products/perfume-box/almudaires.jpeg"],
-    title: "Luxury White Oud Perfume Gift Box",
+    images: ["/products/chocolate-box/fleurdelis-heart-shaped-chocolate-gift-box-valentines.jpg", "/products/chocolate-box/fleurdelis-valentines-heart-gift-box-chocolates-luxury.jpg"],
+    title: "Heart Shape Chocolate Gift Box",
     rating: "4.9",
-    reviews: "41",
+    reviews: "84",
     specs: [
-  { label: "Box Material", value: "MDF Wood + Velvet Lining" },
-  { label: "Box Style", value: "Hinged Wooden Presentation Box" },
-  { label: "Use", value: "Perfume Bottle + Oud Chips Storage" },
-  { label: "Surface Finishing", value: "Matte White Paint + Gold Fittings" },
-  ],
-  },
-  {
-    images: ["/products/perfume-box/audacity-solos.png"],
-    title: "Premium Black Perfume Packaging Box",
-    rating: "4.8",
-    reviews: "57",
-    specs: [
-    { label: "Box Material", value: "Rigid Board + Art Paper" },
-    { label: "Box Style", value: "Two Piece Perfume Box" },
-    { label: "Use", value: "100ml Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Black + UV Print" },
-  ],
-  },
-  {
-    images: [
-      "/products/perfume-box/car-burner-I.jpg",
-      "/products/perfume-box/car-burner-II.jpg",
+      { label: "Box Material", value: "Rigid Board + Velvet Insert" },
+      { label: "Box Style", value: "Heart Shape Luxury Box" },
+      { label: "Use", value: "Valentine Chocolate Packaging" },
+      { label: "Surface Finishing", value: "Matte + Gold Foil Print" },
     ],
-    title: "Luxury Red Car Perfume Burner Box",
-    rating: "4.7",
-    reviews: "36",
-    specs: [
-    { label: "Box Material", value: "Rigid Board + Art Paper" },
-    { label: "Box Style", value: "Lift Off Lid Rigid Box" },
-    { label: "Use", value: "Car Burner Gift Packaging" },
-    { label: "Surface Finishing", value: "Matte Red + Gold Foil" },
-  ],
   },
+
   {
-    images: ["/products/perfume-box/cassie.png"],
-    title: "Luxury Black Drawer Perfume Box",
+    images: ["/products/chocolate-box/fleurdelis-christmas-luxury-chocolate-gift-box-red-gold.jpg"],
+    title: "Luxury Christmas Chocolate Gift Box",
     rating: "4.8",
-    reviews: "33",
+    reviews: "61",
     specs: [
-    { label: "Box Material", value: "Rigid Board + Velvet Insert" },
-    { label: "Box Style", value: "Drawer Slide Perfume Box" },
-    { label: "Use", value: "Luxury Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Black + Gold Foil" },
-  ],
-  },
-  {
-    images: [
-      "/products/perfume-box/forest-essentials-I.png",
-      "/products/perfume-box/forest-essentials-II.png",
-      "/products/perfume-box/forest-essentials-III.png",
+      { label: "Box Material", value: "Rigid Board" },
+      { label: "Box Style", value: "Magnetic Closure Box" },
+      { label: "Use", value: "Festive Chocolate Packaging" },
+      { label: "Surface Finishing", value: "Red Texture + Gold Foil" },
     ],
-    title: "Premium Roll On Perfume Packaging Box",
+  },
+
+    {
+    images: ["/products/chocolate-box/fleurdelis-romantic-chocolate-gift-box-rose-petals.jpg"],
+    title: "Romantic Chocolate Gift Box",
     rating: "4.9",
-    reviews: "62",
+    reviews: "78",
     specs: [
-    { label: "Box Material", value: "Duplex Board + Printed Paper" },
-    { label: "Box Style", value: "Straight Tuck End Box" },
-    { label: "Use", value: "10ml Perfume Roll On Packaging" },
-    { label: "Surface Finishing", value: "Gloss Lamination + Gold Print" },
-  ],
-  },
+        { label: "Box Material", value: "Rigid Base + Transparent Acrylic Lid" },
+        { label: "Box Style", value: "Premium Sliding Tray Gift Box" },
+        { label: "Use", value: "Chocolate, Dry Fruits & Romantic Gifting" },
+        { label: "Surface Finishing", value: "Gloss Finish + Printed Sleeve + Satin Ribbon" },
+    ],
+    },
+
   {
-    images: ["/products/perfume-box/passopm-men.jpg"],
-    title: "Men's Blue Perfume Packaging Box",
+    images: ["/products/chocolate-box/fleurdelis-floral-luxury-gift-hamper-candle-chocolates.jpg"],
+    title: "Floral Luxury Chocolate Gift Box",
     rating: "4.8",
-    reviews: "48",
+    reviews: "55",
     specs: [
-    { label: "Box Material", value: "Duplex Board + Printed Paper" },
-    { label: "Box Style", value: "Straight Tuck End Box" },
-    { label: "Use", value: "100ml Perfume Bottle Packaging" },
-    { label: "Surface Finishing", value: "Matte Blue + UV Print" },
-  ],
+      { label: "Box Material", value: "Rigid Board" },
+      { label: "Box Style", value: "Lift Off Lid Box" },
+      { label: "Use", value: "Chocolate + Gift Hamper" },
+      { label: "Surface Finishing", value: "Printed Floral + Matte Lamination" },
+    ],
+  },
+
+  {
+    images: ["/products/chocolate-box/fleurdelis-luxury-dry-fruit-gift-hamper-red-box.jpg"],
+    title: "Luxury Chocolate & Dry Fruit Box",
+    rating: "4.9",
+    reviews: "67",
+    specs: [
+      { label: "Box Material", value: "Rigid Board" },
+      { label: "Box Style", value: "Partition Gift Box" },
+      { label: "Use", value: "Chocolate + Dry Fruit Packaging" },
+      { label: "Surface Finishing", value: "Matte Red + Gold Logo" },
+    ],
+  },
+
+  {
+    images: ["/products/chocolate-box/fleurdelis-baby-blue-luxury-gift-hamper-candle-chocolates.jpg"],
+    title: "Baby Blue Chocolate Gift Packaging Box",
+    rating: "4.8",
+    reviews: "49",
+    specs: [
+      { label: "Box Material", value: "Rigid Board + Printed Paper" },
+      { label: "Box Style", value: "Premium Gift Box" },
+      { label: "Use", value: "Chocolate & Gifting" },
+      { label: "Surface Finishing", value: "Soft Touch + Gold Foil" },
+    ],
   },
 ]
 
@@ -331,7 +329,7 @@ function CallBackModal({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function PerfumeBoxProducts() {
+export function ChocolateBoxProducts() {
   const [open, setOpen] = useState(false)
   const [cardIndex, setCardIndex] = useState(0)
   const [imageIndex, setImageIndex] = useState(0)
@@ -391,12 +389,12 @@ export function PerfumeBoxProducts() {
         <div className="mx-auto w-full max-w-[1120px] px-4 sm:px-6">
           <div className="mb-6 sm:mb-10">
             <h2 className="font-heading text-2xl font-black uppercase leading-tight tracking-tight text-foreground sm:text-4xl">
-              Our <span className="text-primary">Perfume Box</span> Products
+              Our <span className="text-primary">Chocolate Box</span> Products
             </h2>
 
             <p className="mt-2 max-w-[580px] text-sm text-muted-foreground sm:text-base">
               Everything manufactured at our Noida plant. No middlemen. Direct
-              factory pricing on all Perfume box orders with premium finishing and
+              factory pricing on all Chocolate Box orders with premium finishing and
               custom sizes.
             </p>
           </div>
